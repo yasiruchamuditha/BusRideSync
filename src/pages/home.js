@@ -85,8 +85,8 @@ export default function Dashboard() {
           <p className="text-gray-600">Reserve your Lagguage and make secure payments for your trip.</p>
         </div>
 
-               {/* Card: Lost Feature */}
-               <div
+          {/* Card: Lost Feature */}
+          <div
           onClick={() => router.push('/viewlagguage')}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
@@ -101,6 +101,33 @@ export default function Dashboard() {
         >
           <h3 className="text-xl font-bold text-green-600 mb-4">List Found Items</h3>
           <p className="text-gray-600">Submit found items to help reunite them with their owners.</p>
+        </div>
+      
+        {/* Card: Lagguage Feature */}
+        <div
+          onClick={() => router.push('/updateprofile')}
+          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
+        >
+          <h3 className="text-xl font-bold text-green-600 mb-4">Support and Help Desk</h3>
+          <p className="text-gray-600">Contact Support and Help Desk</p>
+        </div>
+        
+          {/* Card: Lost Feature */}
+          <div
+          onClick={() => router.push('/viewlagguage')}
+          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
+        >
+          <h3 className="text-xl font-bold text-green-600 mb-4">Reviews and Ratings</h3>
+          <p className="text-gray-600">Check Reviews and Ratings in one place.</p>
+        </div>
+
+        {/* Card: Seasonal Tours Feature */}
+        <div
+          onClick={() => router.push('/SeasonalTours')}
+          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
+        >
+          <h3 className="text-xl font-bold text-green-600 mb-4">Seasonal Tours Details</h3>
+          <p className="text-gray-600">Reserve your seasonal Tours</p>
         </div>
       
         {/* Card: Lagguage Feature */}
