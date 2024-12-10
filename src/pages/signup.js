@@ -1,4 +1,3 @@
-//signup.js
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { signup } from '../services/auth';
@@ -10,7 +9,7 @@ export default function Signup() {
     email: '',
     password: '',
     mobile: '',
-    role: 'commuter', // Default role is commuter
+    role: 'commuter', // Default role
   });
   const router = useRouter();
 
@@ -18,12 +17,17 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await signup(formData);
-    if (response.message === 'User registered successfully') {
-      alert('Signup successful!');
-      router.push('/'); // Redirect to login page
-    } else {
-      alert(response.message || 'Signup failed');
+    try {
+      const response = await signup(formData);
+      if (response.message === 'User registered successfully') {
+        alert('Signup successful!');
+        router.push('/'); // Redirect to login page
+      } else {
+        alert(response.message || 'Signup failed');
+      }
+    } catch (error) {
+      alert('Failed to connect to the server. Please try again later.');
+      console.error('Signup error:', error);
     }
   };
 
@@ -77,7 +81,6 @@ export default function Signup() {
             />
           </div>
 
-          {/* Role Selection Dropdown */}
           <div className="mb-4">
             <select
               name="role"

@@ -9,16 +9,20 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const router = useRouter();
 
-  // Handle the login form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await login({ email, password });
-    if (response.token) {
-      Cookies.set('token', response.token, { expires: 1 }); // Store token in cookies (expires in 1 day)
-      alert('Login successful!');
-      router.push('/home'); // Redirect to the home page
-    } else {
-      alert(response.message || 'Login failed');
+    try {
+      const response = await login({ email, password });
+      if (response.token) {
+        Cookies.set('token', response.token, { expires: 1 }); // Save token in cookies
+        alert('Login successful!');
+        router.push('/home'); // Redirect to home page
+      } else {
+        alert(response.message || 'Login failed');
+      }
+    } catch (error) {
+      alert('Failed to connect to the server. Please try again later.');
+      console.error('Login error:', error);
     }
   };
 
