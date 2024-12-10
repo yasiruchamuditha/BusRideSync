@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { login } from '../services/auth';
 import Link from 'next/link';
+import Cookies from 'js-cookie';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -13,9 +14,9 @@ export default function Login() {
     e.preventDefault();
     const response = await login({ email, password });
     if (response.token) {
-      localStorage.setItem('token', response.token); // Save token
+      Cookies.set('token', response.token, { expires: 1 }); // Store token in cookies (expires in 1 day)
       alert('Login successful!');
-      router.push('/dashboard'); // Redirect to the dashboard or home page after login
+      router.push('/home'); // Redirect to the home page
     } else {
       alert(response.message || 'Login failed');
     }

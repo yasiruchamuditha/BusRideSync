@@ -1,3 +1,4 @@
+//search.js
 import { useState } from 'react';
 
 export default function Search() {

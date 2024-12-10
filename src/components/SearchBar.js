@@ -1,3 +1,4 @@
+//SearchBar.js
 import { useState } from 'react';
 
 export default function SearchBar() {
