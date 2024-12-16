@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 
 export default function ReportLostItem() {
   const [formData, setFormData] = useState({
@@ -24,11 +25,32 @@ export default function ReportLostItem() {
     setFormData({ ...formData, photos: [...e.target.files] });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here (e.g., send data to backend)
-    alert('Lost item report submitted successfully!');
-    console.log(formData);
+    try {
+      const formDataToSend = new FormData();
+      Object.keys(formData).forEach(key => {
+        if (key === 'photos') {
+          formData[key].forEach(photo => {
+            formDataToSend.append('photos', photo);
+          });
+        } else {
+          formDataToSend.append(key, formData[key]);
+        }
+      });
+
+      const response = await axios.post('/api/found', formDataToSend, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      alert('Lost item report submitted successfully!');
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error submitting the report:', error);
+      alert('Failed to submit the report. Please try again.');
+    }
   };
 
   return (
