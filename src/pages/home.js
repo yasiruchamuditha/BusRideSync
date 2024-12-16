@@ -112,6 +112,16 @@ export default function Dashboard() {
           <h3 className="text-xl font-bold text-green-600 mb-4">Profile Settings</h3>
           <p className="text-gray-600">Update your personal profile and preferences.</p>
         </div>
+
+        
+        {/* Card: Profile Settings */}
+        <div
+          onClick={() => router.push('/SeatLayout')}
+          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
+        >
+          <h3 className="text-xl font-bold text-green-600 mb-4">Seat Layout</h3>
+          <p className="text-gray-600">Seat Layout.</p>
+        </div>
       </div>
 
       {/* Logout Button */}
