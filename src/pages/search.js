@@ -1,11 +1,13 @@
-//search.js
 import { useState } from 'react';
+import { useRouter } from 'next/router';  // Import useRouter for navigation
 
 export default function Search() {
   const [startCity, setStartCity] = useState('');
   const [destination, setDestination] = useState('');
   const [travelDate, setTravelDate] = useState('');
   const [results, setResults] = useState([]);
+
+  const router = useRouter();  // Initialize useRouter to manage routing
 
   // Handle the search form submission
   const handleSearch = (e) => {
@@ -35,6 +37,22 @@ export default function Search() {
 
     // Filter results based on search inputs (you can enhance this logic as per your needs)
     setResults(dummyResults); // In a real app, this would be data from an API
+  };
+
+  // Navigate to the booking page and pass route data as query parameters
+  const handleReserveSeat = (route, departure, arrival, price) => {
+    router.push({
+      pathname: '/booking',  // Replace with your booking page route
+      query: {
+        route,
+        departure,
+        arrival,
+        price,
+        startCity,
+        destination,
+        travelDate,
+      },
+    });
   };
 
   return (
@@ -112,6 +130,7 @@ export default function Search() {
                 <th className="px-4 py-2 text-left bg-green-500 text-white">Departure</th>
                 <th className="px-4 py-2 text-left bg-green-500 text-white">Arrival</th>
                 <th className="px-4 py-2 text-left bg-green-500 text-white">Price</th>
+                <th className="px-4 py-2 text-left bg-green-500 text-white">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -121,6 +140,21 @@ export default function Search() {
                   <td className="px-4 py-2">{result.departure}</td>
                   <td className="px-4 py-2">{result.arrival}</td>
                   <td className="px-4 py-2">{result.price}</td>
+                  <td className="px-4 py-2">
+                    <button
+                      onClick={() =>
+                        handleReserveSeat(
+                          result.route,
+                          result.departure,
+                          result.arrival,
+                          result.price
+                        )
+                      }
+                      className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                    >
+                      Reserve Seat
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
