@@ -21,7 +21,11 @@ export default function Login() {
         alert(response.message || 'Login failed');
       }
     } catch (error) {
-      alert('Failed to connect to the server. Please try again later.');
+      if (error instanceof TypeError) {
+        alert('Failed to connect to the server. Please check your internet connection and try again.');
+      } else {
+        alert('Failed to connect to the server. Please try again later.');
+      }
       console.error('Login error:', error);
     }
   };

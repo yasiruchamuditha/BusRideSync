@@ -9,34 +9,34 @@ export default function Search() {
 
   const router = useRouter();  // Initialize useRouter to manage routing
 
-  // Handle the search form submission
-  const handleSearch = (e) => {
-    e.preventDefault();
-    
-    // Simulating an API call for demonstration purposes
-    const dummyResults = [
-      {
-        route: 'Route 1',
-        departure: '10:00 AM',
-        arrival: '12:00 PM',
-        price: '$15',
-      },
-      {
-        route: 'Route 2',
-        departure: '2:00 PM',
-        arrival: '4:00 PM',
-        price: '$20',
-      },
-      {
-        route: 'Route 3',
-        departure: '6:00 PM',
-        arrival: '8:00 PM',
-        price: '$18',
-      },
-    ];
+  const cities = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix']; // Example city options
 
-    // Filter results based on search inputs (you can enhance this logic as per your needs)
-    setResults(dummyResults); // In a real app, this would be data from an API
+  // Handle the search form submission
+  const handleSearch = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch('/api/schedules', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          startCity,
+          endCity: destination,
+          date: travelDate,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch schedules');
+      }
+
+      const data = await response.json();
+      setResults(data);
+    } catch (error) {
+      console.error('Error fetching schedules:', error);
+    }
   };
 
   // Navigate to the booking page and pass route data as query parameters
@@ -59,38 +59,44 @@ export default function Search() {
     <div className="bg-green-100 min-h-screen flex flex-col items-center justify-start"> {/* Align content to the top */}
       {/* Search Form */}
       <form onSubmit={handleSearch} className="bg-white p-6 rounded-lg shadow-md flex space-x-4 max-w-4xl w-full mt-4">
-        {/* Start City Input */}
+        {/* Start City Select */}
         <div className="flex flex-col w-full">
           <label htmlFor="startCity" className="text-sm font-medium text-gray-700">
             Start City
           </label>
-          <input
-            type="text"
+          <select
             id="startCity"
             name="startCity"
             value={startCity}
             onChange={(e) => setStartCity(e.target.value)}
-            placeholder="Enter Start City"
             className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
             required
-          />
+          >
+            <option value="" disabled>Select Start City</option>
+            {cities.map((city) => (
+              <option key={city} value={city}>{city}</option>
+            ))}
+          </select>
         </div>
 
-        {/* Destination Input */}
+        {/* Destination Select */}
         <div className="flex flex-col w-full">
           <label htmlFor="destination" className="text-sm font-medium text-gray-700">
             Destination
           </label>
-          <input
-            type="text"
+          <select
             id="destination"
             name="destination"
             value={destination}
             onChange={(e) => setDestination(e.target.value)}
-            placeholder="Enter Destination"
             className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
             required
-          />
+          >
+            <option value="" disabled>Select Destination</option>
+            {cities.map((city) => (
+              <option key={city} value={city}>{city}</option>
+            ))}
+          </select>
         </div>
 
         {/* Date Picker */}

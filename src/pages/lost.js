@@ -1,4 +1,8 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router'; // Import useRouter hook
+import axios from 'axios'; // Assuming you want to send data to a backend
+
+const BASE_URL = 'http://localhost:5000/api/lost';
 
 export default function ReportLostItem() {
   const [formData, setFormData] = useState({
@@ -15,6 +19,8 @@ export default function ReportLostItem() {
     photos: []
   });
 
+  const router = useRouter(); // Initialize useRouter hook
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -24,11 +30,43 @@ export default function ReportLostItem() {
     setFormData({ ...formData, photos: [...e.target.files] });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here (e.g., send data to backend)
-    alert('Lost item report submitted successfully!');
-    console.log(formData);
+    try {
+      const formDataToSend = new FormData();
+
+      // Append all fields to FormData
+      Object.keys(formData).forEach(key => {
+        if (key === 'photos') {
+          formData.photos.forEach(photo => formDataToSend.append('photos', photo));
+        } else {
+          formDataToSend.append(key, formData[key]);
+        }
+      });
+
+      console.log('Sending request to:', BASE_URL);
+      console.log('FormData:', formDataToSend);
+
+      // Send formData using axios
+      const response = await axios.post(BASE_URL, formDataToSend, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      alert('Lost item report submitted successfully!');
+      console.log(response.data);
+
+      // Redirect to the index page after successful submission
+      router.push('/'); // Redirect to the index page
+    } catch (error) {
+      if (error.message === 'Network Error') {
+        alert('Failed to connect to the server. Please check your internet connection and try again.');
+      } else {
+        alert('Failed to submit the report. Please try again.');
+      }
+      console.error('Error submitting the report:', error);
+    }
   };
 
   return (
@@ -156,7 +194,7 @@ export default function ReportLostItem() {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="photos" className="block text-sm font-medium text-gray-700">Upload Photos</label>
+          <label htmlFor="photos" className="block text-sm font-medium text-gray-700">Upload Photos (optional)</label>
           <input
             type="file"
             id="photos"
@@ -166,6 +204,11 @@ export default function ReportLostItem() {
             onChange={handleFileChange}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
           />
+          <div className="mt-2">
+            {formData.photos.length > 0 && formData.photos.map((file, index) => (
+              <p key={index} className="text-sm text-gray-500">{file.name}</p>
+            ))}
+          </div>
         </div>
 
         {/* Note */}
