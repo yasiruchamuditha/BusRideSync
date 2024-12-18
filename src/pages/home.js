@@ -85,6 +85,15 @@ export default function Dashboard() {
           <h3 className="text-xl font-bold text-green-600 mb-4">Found Item List</h3>
           <p className="text-gray-600">Found Item List in the journey.</p>
         </div>
+        
+         {/* Card: View Lost Item */}
+         <div
+          onClick={() => router.push('/LostItems')}
+          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
+        >
+          <h3 className="text-xl font-bold text-green-600 mb-4">Lost Item List</h3>
+          <p className="text-gray-600">Found Item List in the journey.</p>
+        </div>
 
         {/* Card: Luggage Booking */}
         <div
