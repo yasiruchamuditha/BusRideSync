@@ -58,7 +58,7 @@ export default function ReportLostItem() {
       console.log(response.data);
 
       // Redirect to the index page after successful submission
-      router.push('/'); // Redirect to the index page
+      router.push('/home'); // Redirect to the index page
     } catch (error) {
       if (error.message === 'Network Error') {
         alert('Failed to connect to the server. Please check your internet connection and try again.');
@@ -66,6 +66,8 @@ export default function ReportLostItem() {
         alert('Failed to submit the report. Please try again.');
       }
       console.error('Error submitting the report:', error);
+      // Redirect to the home page after not successful submission
+      router.push('/home'); // Redirect to the home page
     }
   };
 
@@ -153,7 +155,7 @@ export default function ReportLostItem() {
           />
         </div>
 
-        {/* Found Item Details */}
+        {/* Lost Item Details */}
         <div className="mb-4">
           <label htmlFor="size" className="block text-sm font-medium text-gray-700">Item Size</label>
           <input

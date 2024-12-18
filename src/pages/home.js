@@ -68,13 +68,22 @@ export default function Dashboard() {
           <p className="text-gray-600">Report items lost during your bus journey.</p>
         </div>
 
-        {/* Card: Submit Found Items */}
+        {/* Card: Report Found Items */}
         <div
           onClick={() => router.push('/found')}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
           <h3 className="text-xl font-bold text-green-600 mb-4">Submit Found Items</h3>
           <p className="text-gray-600">Help reunite lost items with their owners.</p>
+        </div>
+
+         {/* Card: View Found Item */}
+         <div
+          onClick={() => router.push('/foundlist')}
+          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
+        >
+          <h3 className="text-xl font-bold text-green-600 mb-4">Found Item List</h3>
+          <p className="text-gray-600">Found Item List in the journey.</p>
         </div>
 
         {/* Card: Luggage Booking */}
