@@ -66,7 +66,7 @@ export default function ReportFoundItem() {
         alert('Failed to submit the report. Please try again.');
       }
       console.error('Error submitting the report:', error);
-      // Redirect to the index page after not successful submission
+      // Redirect to the home page after not successful submission
       router.push('/home'); // Redirect to the home page
     }
   };
