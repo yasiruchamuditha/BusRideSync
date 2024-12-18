@@ -79,7 +79,7 @@ export default function Dashboard() {
 
          {/* Card: View Found Item */}
          <div
-          onClick={() => router.push('/foundlist')}
+          onClick={() => router.push('/FoundItems')}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
           <h3 className="text-xl font-bold text-green-600 mb-4">Found Item List</h3>
