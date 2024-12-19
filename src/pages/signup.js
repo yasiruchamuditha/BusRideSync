@@ -21,13 +21,14 @@ export default function Signup() {
       const response = await signup(formData);
       if (response.message === 'User registered successfully') {
         alert('Signup successful!');
-        router.push('/'); // Redirect to login page
+        router.push('/login'); // Redirect to login page
       } else {
         alert(response.message || 'Signup failed');
       }
     } catch (error) {
       alert('Failed to connect to the server. Please try again later.');
       console.error('Signup error:', error);
+      router.push('/signup'); // Redirect to login page
     }
   };
 
@@ -103,7 +104,7 @@ export default function Signup() {
         </form>
         <p className="text-center text-sm mt-4">
           Already have an account?{' '}
-          <Link href="/" className="text-green-500 hover:underline">
+          <Link href="/login" className="text-green-500 hover:underline">
             Login
           </Link>
         </p>

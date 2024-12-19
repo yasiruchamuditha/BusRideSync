@@ -9,7 +9,7 @@ export default function Navbar() {
   const handleLogout = () => {
     Cookies.remove('token'); // Remove token from cookies
     alert('You have been logged out!');
-    router.push('/'); // Redirect to the login page
+    router.push('/login'); // Redirect to the login page
   };
 
   return (
@@ -18,7 +18,7 @@ export default function Navbar() {
         <div className="relative flex items-center justify-between h-16">
           {/* Logo on the left */}
           <div className="flex-shrink-0 text-white text-2xl font-bold">
-            <Link href="/">
+            <Link href="/login">
               RideSync
             </Link>
           </div>
