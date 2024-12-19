@@ -11,7 +11,7 @@ export default function Dashboard() {
     const token = Cookies.get('token'); // Retrieve token from cookies
     if (!token) {
       alert('Unauthorized! Redirecting to login.');
-      router.push('/'); // Redirect to login if no token
+      router.push('/login'); // Redirect to login if no token
     } else {
       // Simulate fetching user data (replace with a real API call)
       setUser({ name: 'John Doe' }); // Replace with dynamic user data
@@ -21,7 +21,7 @@ export default function Dashboard() {
   // Handle logout
   const handleLogout = () => {
     Cookies.remove('token'); // Remove token from cookies
-    router.push('/'); // Redirect to login page
+    router.push('/login'); // Redirect to login page
   };
 
   return (
@@ -79,7 +79,7 @@ export default function Dashboard() {
 
          {/* Card: View Found Item */}
          <div
-          onClick={() => router.push('/foundlist')}
+          onClick={() => router.push('/FoundItems')}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
           <h3 className="text-xl font-bold text-green-600 mb-4">Found Item List</h3>
