@@ -34,7 +34,13 @@ export const login = async (credentials) => {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    return await response.json();
+    const data = await response.json();
+
+    // Store tokens in local storage
+    localStorage.setItem('accessToken', data.token);
+    localStorage.setItem('refreshToken', data.refreshToken);
+
+    return data;
   } catch (error) {
     console.error('Failed to fetch during login:', error);
     throw error;
