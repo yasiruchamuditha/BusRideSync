@@ -15,10 +15,13 @@ export default function Login() {
       const response = await login({ email, password });
       if (response.token) {
         Cookies.set('token', response.token, { expires: 1 }); // Save token in cookies
+        localStorage.setItem('accessToken', response.token); // Save token in local storage
+        localStorage.setItem('refreshToken', response.refreshToken); // Save refresh token in local storage
         alert('Login successful!');
         router.push('/home'); // Redirect to home page
       } else {
         alert(response.message || 'Login failed');
+        router.push('/login'); // Redirect to login page
       }
     } catch (error) {
       if (error instanceof TypeError) {
@@ -27,7 +30,6 @@ export default function Login() {
         alert('Failed to connect to the server. Please try again later.');
       }
       console.error('Login error:', error);
-      router.push('/login'); // Redirect to login page
     }
   };
 
