@@ -54,7 +54,7 @@ export default function ReportFoundItem() {
         },
       });
 
-      alert('Lost item report submitted successfully!');
+      alert('Found item report submitted successfully!');
       console.log(response.data);
 
       // Redirect to the index page after successful submission
