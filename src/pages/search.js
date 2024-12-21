@@ -1,48 +1,57 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';  // Import useRouter for navigation
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { fetchRoutes } from '../services/routeService'; // Import the service
+import { fetchSchedules } from '../services/scheduleService'; // Import the service
 
 export default function Search() {
+  // State to hold the form data and results
   const [startCity, setStartCity] = useState('');
   const [destination, setDestination] = useState('');
   const [travelDate, setTravelDate] = useState('');
   const [results, setResults] = useState([]);
+  const [error, setError] = useState(null);
+  const [cities, setCities] = useState([]);
 
-  const router = useRouter();  // Initialize useRouter to manage routing
+  // Router instance
+  const router = useRouter();
 
-  const cities = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix']; // Example city options
+  useEffect(() => {
+    // Fetch route data from the API
+    const fetchRouteData = async () => {
+      try {
+        const data = await fetchRoutes(); // Use the service to fetch routes
 
-  // Handle the search form submission
+        // Extract unique cities from startCity and endCity
+        const uniqueCities = Array.from(new Set([...data.map(route => route.startCity), ...data.map(route => route.endCity)]));
+        setCities(uniqueCities);
+      } catch (error) {
+        console.error('Error fetching routes:', error);
+        setError(error.message);
+      }
+    };
+
+    fetchRouteData();
+  }, []);
+
+  // Function to fetch schedules from the API
   const handleSearch = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('/api/schedules', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          startCity,
-          endCity: destination,
-          date: travelDate,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to fetch schedules');
-      }
-
-      const data = await response.json();
-      setResults(data);
+      const data = await fetchSchedules(startCity, destination, travelDate); // Use the service to fetch schedules
+      console.log('Fetched data:', data); // Debug log
+      setResults(data); // Set the results state with the fetched data
+      setError(null); // Clear any previous error state
     } catch (error) {
       console.error('Error fetching schedules:', error);
+      setError(error.message); // Set error state with the error message
     }
   };
 
-  // Navigate to the booking page and pass route data as query parameters
+  // Function to handle reserve seat
   const handleReserveSeat = (route, departure, arrival, price) => {
     router.push({
-      pathname: '/booking',  // Replace with your booking page route
+      pathname: '/booking',
       query: {
         route,
         departure,
@@ -56,51 +65,47 @@ export default function Search() {
   };
 
   return (
-    <div className="bg-green-100 min-h-screen flex flex-col items-center justify-start"> {/* Align content to the top */}
-      {/* Search Form */}
-      <form onSubmit={handleSearch} className="bg-white p-6 rounded-lg shadow-md flex space-x-4 max-w-4xl w-full mt-4">
-        {/* Start City Select */}
-        <div className="flex flex-col w-full">
+    <div className="bg-green-200 min-h-screen flex flex-col items-center justify-start">
+      <form onSubmit={handleSearch} className="bg-white p-6 rounded-lg shadow-md flex flex-wrap space-x-4 max-w-6xl w-full mt-6">
+        <div className="flex flex-col flex-grow w-1/5">
           <label htmlFor="startCity" className="text-sm font-medium text-gray-700">
-            Start City
+            From :
           </label>
           <select
             id="startCity"
             name="startCity"
             value={startCity}
             onChange={(e) => setStartCity(e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 h-full"
             required
           >
-            <option value="" disabled>Select Start City</option>
+            <option value="" disabled>Select :</option>
             {cities.map((city) => (
               <option key={city} value={city}>{city}</option>
             ))}
           </select>
         </div>
 
-        {/* Destination Select */}
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col flex-grow w-1/5">
           <label htmlFor="destination" className="text-sm font-medium text-gray-700">
-            Destination
+            To :
           </label>
           <select
             id="destination"
             name="destination"
             value={destination}
             onChange={(e) => setDestination(e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 h-full"
             required
           >
-            <option value="" disabled>Select Destination</option>
+            <option value="" disabled>Select :</option>
             {cities.map((city) => (
               <option key={city} value={city}>{city}</option>
             ))}
           </select>
         </div>
 
-        {/* Date Picker */}
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col flex-grow w-1/5">
           <label htmlFor="travelDate" className="text-sm font-medium text-gray-700">
             Travel Date
           </label>
@@ -110,24 +115,24 @@ export default function Search() {
             name="travelDate"
             value={travelDate}
             onChange={(e) => setTravelDate(e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 h-full"
             required
           />
         </div>
 
-        {/* Search Button */}
-        <div className="flex items-center justify-center">
+        <div className="flex items-end flex-grow w-1/5">
           <button
             type="submit"
-            className="px-6 py-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 w-full mt-4"
+            className="px-6 py-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 w-full flex items-center justify-center"
           >
             Search
           </button>
         </div>
       </form>
 
-      {/* Table to Display Search Results */}
-      {results.length > 0 && (
+      {error && <div className="text-red-500 mt-4">{error}</div>} {/* Display error message */}
+
+      {results.length > 0 ? (
         <div className="w-full max-w-4xl mx-auto mt-8">
           <table className="min-w-full table-auto">
             <thead>
@@ -142,18 +147,18 @@ export default function Search() {
             <tbody>
               {results.map((result, index) => (
                 <tr key={index} className="border-b hover:bg-gray-100">
-                  <td className="px-4 py-2">{result.route}</td>
-                  <td className="px-4 py-2">{result.departure}</td>
-                  <td className="px-4 py-2">{result.arrival}</td>
-                  <td className="px-4 py-2">{result.price}</td>
+                  <td className="px-4 py-2">{result.busRouteType}</td>
+                  <td className="px-4 py-2">{result.startCity}</td>
+                  <td className="px-4 py-2">{result.endCity}</td>
+                  <td className="px-4 py-2">{result.ticketPrice}</td>
                   <td className="px-4 py-2">
                     <button
                       onClick={() =>
                         handleReserveSeat(
-                          result.route,
-                          result.departure,
-                          result.arrival,
-                          result.price
+                          result.busRouteType,
+                          result.startCity,
+                          result.endCity,
+                          result.ticketPrice
                         )
                       }
                       className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
@@ -166,6 +171,8 @@ export default function Search() {
             </tbody>
           </table>
         </div>
+      ) : (
+        <div className="text-gray-700 mt-4">No results found.</div>
       )}
     </div>
   );
