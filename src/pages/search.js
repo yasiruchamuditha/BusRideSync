@@ -1,16 +1,18 @@
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { fetchRoutes } from '../services/routeService'; // Import the service
+import { useState, useEffect } from 'react';                  // Import the useState and useEffect hooks
+import { useRouter } from 'next/router';                      // Import the useRouter hook
+import { fetchRoutes } from '../services/routeService';       // Import the service
 import { fetchSchedules } from '../services/scheduleService'; // Import the service
+import BusCard from '../components/BusCard';                  // Import the BusCard component
 
+// Search component
 export default function Search() {
   // State to hold the form data and results
-  const [startCity, setStartCity] = useState('');
-  const [destination, setDestination] = useState('');
-  const [departureDate, setDepartureDate] = useState('');
-  const [results, setResults] = useState([]);
-  const [error, setError] = useState(null);
-  const [cities, setCities] = useState([]);
+  const [startCity, setStartCity] = useState('');                 // State to hold the start city 
+  const [destination, setDestination] = useState('');             // State to hold the destination city
+  const [departureDate, setDepartureDate] = useState('');         // State to hold the departure date
+  const [results, setResults] = useState([]);                     // State to hold the search results
+  const [error, setError] = useState(null);                       // State to hold the error message
+  const [cities, setCities] = useState([]);                       // State to hold the list of cities  
 
   // Router instance
   const router = useRouter();
@@ -20,7 +22,6 @@ export default function Search() {
     const fetchRouteData = async () => {
       try {
         const data = await fetchRoutes(); // Use the service to fetch routes
-
         // Extract unique cities from startCity and endCity
         const uniqueCities = Array.from(new Set([...data.map(route => route.startCity), ...data.map(route => route.endCity)]));
         setCities(uniqueCities);
@@ -29,7 +30,6 @@ export default function Search() {
         setError(error.message);
       }
     };
-
     fetchRouteData();
   }, []);
 
@@ -133,43 +133,10 @@ export default function Search() {
       {error && <div className="text-red-500 mt-4">{error}</div>} {/* Display error message */}
 
       {results.length > 0 ? (
-        <div className="w-full max-w-4xl mx-auto mt-8">
-          <table className="min-w-full table-auto">
-            <thead>
-              <tr>
-                <th className="px-4 py-2 text-left bg-green-500 text-white">Route</th>
-                <th className="px-4 py-2 text-left bg-green-500 text-white">Departure</th>
-                <th className="px-4 py-2 text-left bg-green-500 text-white">Arrival</th>
-                <th className="px-4 py-2 text-left bg-green-500 text-white">Price</th>
-                <th className="px-4 py-2 text-left bg-green-500 text-white">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {results.map((result, index) => (
-                <tr key={index} className="border-b hover:bg-gray-100">
-                  <td className="px-4 py-2">{result.busRouteType}</td>
-                  <td className="px-4 py-2">{result.startCity}</td>
-                  <td className="px-4 py-2">{result.endCity}</td>
-                  <td className="px-4 py-2">{result.ticketPrice}</td>
-                  <td className="px-4 py-2">
-                    <button
-                      onClick={() =>
-                        handleReserveSeat(
-                          result.busRouteType,
-                          result.startCity,
-                          result.endCity,
-                          result.ticketPrice
-                        )
-                      }
-                      className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-                    >
-                      Reserve Seat
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="w-full max-w-6xl mx-auto mt-8">
+          {results.map((result, index) => (
+            <BusCard key={index} bus={result} handleReserveSeat={handleReserveSeat} />
+          ))}
         </div>
       ) : (
         <div className="text-gray-700 mt-4">No results found.</div>
