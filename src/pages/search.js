@@ -7,7 +7,7 @@ export default function Search() {
   // State to hold the form data and results
   const [startCity, setStartCity] = useState('');
   const [destination, setDestination] = useState('');
-  const [travelDate, setTravelDate] = useState('');
+  const [departureDate, setDepartureDate] = useState('');
   const [results, setResults] = useState([]);
   const [error, setError] = useState(null);
   const [cities, setCities] = useState([]);
@@ -38,7 +38,7 @@ export default function Search() {
     e.preventDefault();
 
     try {
-      const data = await fetchSchedules(startCity, destination, travelDate); // Use the service to fetch schedules
+      const data = await fetchSchedules(startCity, destination, departureDate); // Use the service to fetch schedules
       console.log('Fetched data:', data); // Debug log
       setResults(data); // Set the results state with the fetched data
       setError(null); // Clear any previous error state
@@ -59,7 +59,7 @@ export default function Search() {
         price,
         startCity,
         destination,
-        travelDate,
+        departureDate,
       },
     });
   };
@@ -106,15 +106,15 @@ export default function Search() {
         </div>
 
         <div className="flex flex-col flex-grow w-1/5">
-          <label htmlFor="travelDate" className="text-sm font-medium text-gray-700">
+          <label htmlFor="departureDate" className="text-sm font-medium text-gray-700">
             Travel Date
           </label>
           <input
             type="date"
-            id="travelDate"
-            name="travelDate"
-            value={travelDate}
-            onChange={(e) => setTravelDate(e.target.value)}
+            id="departureDate"
+            name="departureDate"
+            value={departureDate}
+            onChange={(e) => setDepartureDate(e.target.value)}
             className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 h-full"
             required
           />
