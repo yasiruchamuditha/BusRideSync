@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const BASE_URL = 'http://localhost:5000/api/schedules'; // base URL
 
-export const fetchSchedules = async (startCity, endCity, date) => {
+export const fetchSchedules = async (startCity, endCity, departureDate) => {
   try {
     const token = localStorage.getItem('accessToken'); // Retrieve the token from local storage or another secure place
     if (!token) {
@@ -13,7 +13,7 @@ export const fetchSchedules = async (startCity, endCity, date) => {
     const response = await axios.post(`${BASE_URL}/search`, {
       startCity,
       endCity,
-      date,
+      departureDate,
     }, {
       headers: {
         Authorization: `Bearer ${token}`, // Include the Bearer token in the request headers
