@@ -51,7 +51,7 @@ export default function Search() {
   // Function to handle reserve seat
   const handleReserveSeat = (route, departure, arrival, price) => {
     router.push({
-      pathname: '/booking',
+      pathname: '/seatReservation',
       query: {
         route,
         departure,

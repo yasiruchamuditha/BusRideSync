@@ -22,7 +22,7 @@ const BusCard = ({ bus, handleReserveSeat }) => {
         </div>
         <div className={styles.headerCenter}>
           <h4>Stops @ {bus.endCity}</h4>
-          <h4> ROUTE#{bus.route.routeNumber}</h4>
+          {/* <h4> ROUTE#{bus.busId.routeNumber}</h4> */}
         </div>
         <div className={styles.headerRight}>
           <h4 className={styles.cardx}>{bus.busRouteType}</h4>
