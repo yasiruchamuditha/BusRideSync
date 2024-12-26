@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import axiosInstance from '../utils/axiosInstance';
 import { useRouter } from 'next/router'; // Import useRouter hook
-import axios from 'axios'; // Assuming you want to send data to a backend
 
 const BASE_URL = 'http://localhost:5000/api/lost';
 
@@ -11,7 +11,7 @@ export default function ReportLostItem() {
     email: '',
     busNumber: '',
     route: '',
-    foundPlace: '',
+    lostPlace: '',
     size: '',
     color: '',
     type: '',
@@ -47,8 +47,8 @@ export default function ReportLostItem() {
       console.log('Sending request to:', BASE_URL);
       console.log('FormData:', formDataToSend);
 
-      // Send formData using axios
-      const response = await axios.post(BASE_URL, formDataToSend, {
+      // Send formData using axiosInstance
+      const response = await axiosInstance.post(BASE_URL, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -58,10 +58,12 @@ export default function ReportLostItem() {
       console.log(response.data);
 
       // Redirect to the index page after successful submission
-      router.push('/home'); // Redirect to the index page
+      router.push('/home'); // Redirect to the home page
     } catch (error) {
       if (error.message === 'Network Error') {
         alert('Failed to connect to the server. Please check your internet connection and try again.');
+      } else if (error.response && error.response.status === 500) {
+        alert('Server error occurred. Please try again later.');
       } else {
         alert('Failed to submit the report. Please try again.');
       }
@@ -75,6 +77,7 @@ export default function ReportLostItem() {
     <div className="min-h-screen bg-green-100 flex flex-col items-center py-8">
       <h2 className="text-3xl font-bold text-green-700 mb-6">Report Lost Item</h2>
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg w-full max-w-3xl">
+        {/* Form fields as shown in the initial code */}
         {/* Personal Details */}
         <div className="mb-4">
           <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
@@ -143,19 +146,19 @@ export default function ReportLostItem() {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="foundPlace" className="block text-sm font-medium text-gray-700">Found Place (Nearest City)</label>
+          <label htmlFor="lostPlace" className="block text-sm font-medium text-gray-700">Lost Place (Nearest City)</label>
           <input
             type="text"
-            id="foundPlace"
-            name="foundPlace"
-            value={formData.foundPlace}
+            id="lostPlace"
+            name="lostPlace"
+            value={formData.lostPlace}
             onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
             required
           />
         </div>
 
-        {/* Lost Item Details */}
+        {/* Found Item Details */}
         <div className="mb-4">
           <label htmlFor="size" className="block text-sm font-medium text-gray-700">Item Size</label>
           <input
