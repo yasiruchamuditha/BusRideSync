@@ -15,7 +15,7 @@ export default function Dashboard() {
       router.push('/login'); // Redirect to login if no token
     } else {
       // Simulate fetching user data (replace with a real API call)
-      setUser({ name}); // Replace with dynamic user data
+      setUser({ name }); // Replace with dynamic user data
     }
   }, [router]);
 
@@ -31,78 +31,180 @@ export default function Dashboard() {
         Welcome Admin, {user ? user.name : 'Loading...'}
       </h2>
 
-      {/* Dashboard Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl px-4">
-        {/* Card: Search Bus Schedules */}
-        <div
-          onClick={() => router.push('/search')}
-          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
-        >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Schedules</h3>
-          <p className="text-gray-600">Schedules Management</p>
+      {/* Main Cards */}
+      <div className="w-full max-w-6xl px-4">
+        {/* Card: Schedules */}
+        <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer mb-8">
+          <h3 className="text-xl font-bold text-green-600 mb-4">Schedules Management</h3>
+          <div className="mt-4">
+            <p className="text-gray-600">
+              Manage bus schedules efficiently.
+            </p>
+            <button
+              onClick={() => router.push('/save_schedule')}
+              className="mt-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+            >
+              Add Schedule
+            </button>
+            <button
+              onClick={() => router.push('/view_schedules')}
+              className="mt-4 ml-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+            >
+              View Schedules
+            </button>
+          </div>
         </div>
 
-        {/* Card: Book Bus Seats */}
-        <div
-          onClick={() => router.push('/booking')}
-          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
-        >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Routes</h3>
-          <p className="text-gray-600">Routes Management</p>
+        {/* Card: Routes */}
+        <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer mb-8">
+          <h3 className="text-xl font-bold text-green-600 mb-4">Routes Management</h3>
+          <div className="mt-4">
+            <p className="text-gray-600">
+              Manage bus routes effectively.
+            </p>
+            <button
+              onClick={() => router.push('/save_route')}
+              className="mt-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+            >
+              Add Route
+            </button>
+            <button
+              onClick={() => router.push('/view_routes')}
+              className="mt-4 ml-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+            >
+              View Routes
+            </button>
+          </div>
         </div>
 
-        {/* Card: View Bookings */}
-        <div
-          onClick={() => router.push('/viewbooking')}
-          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
-        >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Bookings </h3>
-          <p className="text-gray-600">Booking Management</p>
+        {/* Card: Bookings */}
+        <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer mb-8">
+          <h3 className="text-xl font-bold text-green-600 mb-4">Bookings Management</h3>
+          <div className="mt-4">
+            <p className="text-gray-600">
+              Manage bus bookings seamlessly.
+            </p>
+            <button
+              onClick={() => router.push('/viewbooking')}
+              className="mt-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+            >
+              View Bookings
+            </button>
+          </div>
         </div>
 
-        {/* Card: Report Lost Items */}
-        <div
-          onClick={() => router.push('/lost')}
-          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
-        >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Lost Items</h3>
-          <p className="text-gray-600">Lost Items Management</p>
+        {/* Card: Lost Items */}
+        <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer mb-8">
+          <h3 className="text-xl font-bold text-green-600 mb-4">Lost Items Management</h3>
+          <div className="mt-4">
+            <p className="text-gray-600">
+              Report and manage lost items.
+            </p>
+            <button
+              onClick={() => router.push('/lost')}
+              className="mt-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+            >
+              View Lost Items
+            </button>
+            <button
+              onClick={() => router.push('/view_lost')}
+              className="mt-4 ml-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+            >
+              View Lost
+            </button>
+          </div>
         </div>
 
-        {/* Card: Report Found Items */}
-        <div
-          onClick={() => router.push('/found')}
-          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
-        >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Found Items</h3>
-          <p className="text-gray-600">Found Item Management</p>
+        {/* Card: Found Items */}
+        <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer mb-8">
+          <h3 className="text-xl font-bold text-green-600 mb-4">Found Items Management</h3>
+          <div className="mt-4">
+            <p className="text-gray-600">
+              Report and manage found items.
+            </p>
+            <button
+              onClick={() => router.push('/found')}
+              className="mt-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+            >
+              View Found Items
+            </button>
+            <button
+              onClick={() => router.push('/view_found')}
+              className="mt-4 ml-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+            >
+              View Found
+            </button>
+          </div>
         </div>
 
-         {/* Card: View Found Item */}
-         <div
-          onClick={() => router.push('/FoundItems')}
-          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
-        >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Users</h3>
-          <p className="text-gray-600">User Management</p>
-        </div>
-        
-         {/* Card: View Lost Item */}
-         <div
-          onClick={() => router.push('/LostItems')}
-          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
-        >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Bus</h3>
-          <p className="text-gray-600">Bus Management</p>
+        {/* Card: Users */}
+        <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer mb-8">
+          <h3 className="text-xl font-bold text-green-600 mb-4">Users Management</h3>
+          <div className="mt-4">
+            <p className="text-gray-600">
+              Manage user accounts and permissions.
+            </p>
+            <button
+              onClick={() => router.push('/users')}
+              className="mt-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+            >
+              View Users
+            </button>
+          </div>
         </div>
 
-        {/* Card: Luggage Booking */}
-        <div
-          onClick={() => router.push('/luggage')}
-          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
-        >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Luggage</h3>
-          <p className="text-gray-600">Luggage Management</p>
+        {/* Card: Bus */}
+        <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer mb-8">
+          <h3 className="text-xl font-bold text-green-600 mb-4">Bus Management</h3>
+          <div className="mt-4">
+            <p className="text-gray-600">
+              Manage bus details and schedules.
+            </p>
+            <button
+              onClick={() => router.push('/save_bus')}
+              className="mt-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+            >
+              Add Bus
+            </button>
+            <button
+              onClick={() => router.push('/view_buses')}
+              className="mt-4 ml-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+            >
+              View Buses
+            </button>
+          </div>
+        </div>
+
+        {/* Card: Luggage */}
+        <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer mb-8">
+          <h3 className="text-xl font-bold text-green-600 mb-4">Luggage Management</h3>
+          <div className="mt-4">
+            <p className="text-gray-600">
+              Manage luggage bookings and details.
+            </p>
+            <button
+              onClick={() => router.push('/update_bus')}
+              className="mt-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+            >
+              View Luggage
+            </button>
+          </div>
+        </div>
+
+        {/* Long Card Below Main Cards */}
+        <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer mb-8">
+          <h3 className="text-xl font-bold text-green-600 mb-4">Reports</h3>
+          <div className="mt-4">
+            <p className="text-gray-600">
+              Access detailed reports and analytics to monitor and improve operations.
+            </p>
+            <button
+              onClick={() => router.push('/reports')}
+              className="mt-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+            >
+              View Reports
+            </button>
+          </div>
         </div>
       </div>
 
