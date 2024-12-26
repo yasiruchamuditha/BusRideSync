@@ -14,14 +14,24 @@ export default function Login() {
     try {
       const response = await login({ email, password });
       if (response.token) {
-        Cookies.set('token', response.token, { expires: 1 }); // Save token in cookies
+        Cookies.set('token', response.token, { expires: 1 }); // Save token in cookies for 60 minutes
+        Cookies.set('name', response.user.name); // Save name in cookies 
         localStorage.setItem('accessToken', response.token); // Save token in local storage
         localStorage.setItem('refreshToken', response.refreshToken); // Save refresh token in local storage
+        localStorage.setItem('role', response.user.role); // Save role in local storage
+        console.log('Login successful:', response);
         alert('Login successful!');
-        router.push('/home'); // Redirect to home page
+        
+        // Redirect based on role
+        if (response.user.role === 'admin') {
+          router.push('/admin'); // Redirect to admin panel
+        } else if (response.user.role === 'operator') {
+          router.push('/operator'); // Redirect to operator panel
+        } else {
+          router.push('/home'); // Default redirect to home page
+        }
       } else {
         alert(response.message || 'Login failed');
-        router.push('/login'); // Redirect to login page
       }
     } catch (error) {
       if (error instanceof TypeError) {

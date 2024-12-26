@@ -28,7 +28,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center py-8">
       <h2 className="text-3xl font-bold mb-6 text-center text-green-600">
-        Welcome, {user ? user.name : 'Loading...'}
+        Welcome Operator, {user ? user.name : 'Loading...'}
       </h2>
 
       {/* Dashboard Cards */}
