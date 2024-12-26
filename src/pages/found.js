@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import axiosInstance from '../utils/axiosInstance';
 import { useRouter } from 'next/router'; // Import useRouter hook
 
 const BASE_URL = 'http://localhost:5000/api/found';
@@ -47,8 +47,8 @@ export default function ReportFoundItem() {
       console.log('Sending request to:', BASE_URL);
       console.log('FormData:', formDataToSend);
 
-      // Send formData using axios
-      const response = await axios.post(BASE_URL, formDataToSend, {
+      // Send formData using axiosInstance
+      const response = await axiosInstance.post(BASE_URL, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -62,6 +62,8 @@ export default function ReportFoundItem() {
     } catch (error) {
       if (error.message === 'Network Error') {
         alert('Failed to connect to the server. Please check your internet connection and try again.');
+      } else if (error.response && error.response.status === 500) {
+        alert('Server error occurred. Please try again later.');
       } else {
         alert('Failed to submit the report. Please try again.');
       }
