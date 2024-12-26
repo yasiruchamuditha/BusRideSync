@@ -36,9 +36,10 @@ export const login = async (credentials) => {
 
     const data = await response.json();
 
-    // Store tokens in local storage
+    // Store tokens and role in local storage
     localStorage.setItem('accessToken', data.token);
     localStorage.setItem('refreshToken', data.refreshToken);
+    localStorage.setItem('role', data.role); // Store role
 
     return data;
   } catch (error) {

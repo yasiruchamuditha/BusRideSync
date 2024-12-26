@@ -21,7 +21,7 @@ const FoundItems = () => {
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8" style={{ height: '1000px' }}>
       <h1 className="text-3xl font-bold text-center mb-8">Found Items</h1>
       {error && <p className="text-red-500 text-center">{error}</p>}
       <div className="flex flex-wrap justify-center">

@@ -28,7 +28,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center py-8">
       <h2 className="text-3xl font-bold mb-6 text-center text-green-600">
-        Welcome, {user ? user.name : 'Loading...'}
+        Welcome Admin, {user ? user.name : 'Loading...'}
       </h2>
 
       {/* Dashboard Cards */}
@@ -38,8 +38,8 @@ export default function Dashboard() {
           onClick={() => router.push('/search')}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Search Bus Schedules</h3>
-          <p className="text-gray-600">Find bus routes and schedules for your journey.</p>
+          <h3 className="text-xl font-bold text-green-600 mb-4">Schedules</h3>
+          <p className="text-gray-600">Schedules Management</p>
         </div>
 
         {/* Card: Book Bus Seats */}
@@ -47,8 +47,8 @@ export default function Dashboard() {
           onClick={() => router.push('/booking')}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Book Bus Seats</h3>
-          <p className="text-gray-600">Reserve your seats and make secure payments for your trip.</p>
+          <h3 className="text-xl font-bold text-green-600 mb-4">Routes</h3>
+          <p className="text-gray-600">Routes Management</p>
         </div>
 
         {/* Card: View Bookings */}
@@ -56,8 +56,8 @@ export default function Dashboard() {
           onClick={() => router.push('/viewbooking')}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
-          <h3 className="text-xl font-bold text-green-600 mb-4">View Bookings</h3>
-          <p className="text-gray-600">Check your upcoming and past bookings in one place.</p>
+          <h3 className="text-xl font-bold text-green-600 mb-4">Bookings </h3>
+          <p className="text-gray-600">Booking Management</p>
         </div>
 
         {/* Card: Report Lost Items */}
@@ -65,8 +65,8 @@ export default function Dashboard() {
           onClick={() => router.push('/lost')}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Report Lost Items</h3>
-          <p className="text-gray-600">Report items lost during your bus journey.</p>
+          <h3 className="text-xl font-bold text-green-600 mb-4">Lost Items</h3>
+          <p className="text-gray-600">Lost Items Management</p>
         </div>
 
         {/* Card: Report Found Items */}
@@ -74,8 +74,8 @@ export default function Dashboard() {
           onClick={() => router.push('/found')}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Submit Found Items</h3>
-          <p className="text-gray-600">Help reunite lost items with their owners.</p>
+          <h3 className="text-xl font-bold text-green-600 mb-4">Found Items</h3>
+          <p className="text-gray-600">Found Item Management</p>
         </div>
 
          {/* Card: View Found Item */}
@@ -83,8 +83,8 @@ export default function Dashboard() {
           onClick={() => router.push('/FoundItems')}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Found Item List</h3>
-          <p className="text-gray-600">Found Item List in the journey.</p>
+          <h3 className="text-xl font-bold text-green-600 mb-4">Users</h3>
+          <p className="text-gray-600">User Management</p>
         </div>
         
          {/* Card: View Lost Item */}
@@ -92,8 +92,8 @@ export default function Dashboard() {
           onClick={() => router.push('/LostItems')}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Lost Item List</h3>
-          <p className="text-gray-600">Found Item List in the journey.</p>
+          <h3 className="text-xl font-bold text-green-600 mb-4">Bus</h3>
+          <p className="text-gray-600">Bus Management</p>
         </div>
 
         {/* Card: Luggage Booking */}
@@ -101,45 +101,8 @@ export default function Dashboard() {
           onClick={() => router.push('/luggage')}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Luggage Booking</h3>
-          <p className="text-gray-600">Reserve and manage luggage for your journey.</p>
-        </div>
-
-        {/* Card: View Luggage Booking */}
-        <div
-          onClick={() => router.push('/viewluggage')}
-          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
-        >
-          <h3 className="text-xl font-bold text-green-600 mb-4">View Luggage Bookings</h3>
-          <p className="text-gray-600">Check all your luggage reservations in one place.</p>
-        </div>
-
-        {/* Card: Seasonal Tours */}
-        <div
-          onClick={() => router.push('/seasonaltours')}
-          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
-        >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Seasonal Tours</h3>
-          <p className="text-gray-600">Reserve special seasonal tours with ease.</p>
-        </div>
-
-        {/* Card: Profile Settings */}
-        <div
-          onClick={() => router.push('/profile')}
-          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
-        >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Profile Settings</h3>
-          <p className="text-gray-600">Update your personal profile and preferences.</p>
-        </div>
-
-        
-        {/* Card: Profile Settings */}
-        <div
-          onClick={() => router.push('/SeatLayout')}
-          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
-        >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Seat Layout</h3>
-          <p className="text-gray-600">Seat Layout.</p>
+          <h3 className="text-xl font-bold text-green-600 mb-4">Luggage</h3>
+          <p className="text-gray-600">Luggage Management</p>
         </div>
       </div>
 
