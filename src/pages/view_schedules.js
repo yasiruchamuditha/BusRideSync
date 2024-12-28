@@ -45,6 +45,7 @@ export default function ViewSchedules() {
             <th className="px-4 py-2 border-b-2 border-gray-300">Bus Number</th>
             <th className="px-4 py-2 border-b-2 border-gray-300">Route</th>
             <th className="px-4 py-2 border-b-2 border-gray-300">Bus Route Type</th>
+            <th className="px-4 py-2 border-b-2 border-gray-300">Bus Route Way</th>
             <th className="px-4 py-2 border-b-2 border-gray-300">Start City</th>
             <th className="px-4 py-2 border-b-2 border-gray-300">Departure Date</th>
             <th className="px-4 py-2 border-b-2 border-gray-300">Departure Time</th>
@@ -63,6 +64,7 @@ export default function ViewSchedules() {
                 <td className="px-4 py-2 border-b border-gray-300">{schedule.busId ? schedule.busId.busNumber : 'N/A'}</td>
                 <td className="px-4 py-2 border-b border-gray-300">{schedule.route ? schedule.route.routeName : 'N/A'}</td> 
                 <td className="px-4 py-2 border-b border-gray-300">{schedule.busRouteType}</td>
+                <td className="px-4 py-2 border-b border-gray-300">{schedule.routeWay}</td>
                 <td className="px-4 py-2 border-b border-gray-300">{schedule.startCity}</td>
                 <td className="px-4 py-2 border-b border-gray-300">{new Date(schedule.departureDate).toLocaleDateString()}</td>
                 <td className="px-4 py-2 border-b border-gray-300">{schedule.departureTime}</td>

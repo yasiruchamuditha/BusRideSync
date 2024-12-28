@@ -11,6 +11,7 @@ export default function CreateSchedule() {
     busId: '',
     route: '',
     busRouteType: '',
+    routeWay: '',
     startCity: '',
     departureDate: '',
     departureTime: '',
@@ -127,6 +128,22 @@ export default function CreateSchedule() {
             <option value="Normal">Normal</option>
             <option value="Semi Luxury">Semi Luxury</option>
             <option value="Luxury">Luxury</option>
+          </select>
+        </div>
+
+             {/* Bus routeWay */}
+             <div className="mb-4">
+          <label htmlFor="routeWay" className="block text-sm font-medium text-gray-700">Route Way</label>
+          <select
+            id="routeWay"
+            name="routeWay"
+            value={formData.routeWay}
+            onChange={handleChange}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+            required
+          >
+            <option value="">Select Route Way</option>
+            <option value="NormalWay">NormalWay</option>
             <option value="ExpressWay">ExpressWay</option>
           </select>
         </div>
