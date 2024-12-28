@@ -60,6 +60,7 @@ export default function ViewBuses() {
               <th className="px-4 py-2 border-b-2 border-gray-300">NTC Registration Number</th>
               <th className="px-4 py-2 border-b-2 border-gray-300">Conductor&apos;s NTC Registration Number</th>
               <th className="px-4 py-2 border-b-2 border-gray-300">Driver&apos;s NTC Registration Number</th>
+              <th className="px-4 py-2 border-b-2 border-gray-300">Operator</th>
               <th className="px-4 py-2 border-b-2 border-gray-300">Bus Number</th>
               <th className="px-4 py-2 border-b-2 border-gray-300">Capacity</th>
               <th className="px-4 py-2 border-b-2 border-gray-300">Bus Type</th>
@@ -75,6 +76,7 @@ export default function ViewBuses() {
                 <td className="px-4 py-2 border-b border-gray-300">{bus.ntcRegNumber}</td>
                 <td className="px-4 py-2 border-b border-gray-300">{bus.conductorNtcRegNumber}</td>
                 <td className="px-4 py-2 border-b border-gray-300">{bus.driverNtcRegNumber}</td>
+                <td className="px-4 py-2 border-b border-gray-300">{bus.operator ? bus.operator.name : 'N/A'}</td>
                 <td className="px-4 py-2 border-b border-gray-300">{bus.busNumber}</td>
                 <td className="px-4 py-2 border-b border-gray-300">{bus.capacity}</td>
                 <td className="px-4 py-2 border-b border-gray-300">{bus.busType}</td>
