@@ -1,3 +1,4 @@
+//src/components/BusCard.js
 import React from 'react';
 import styles from '../styles/BusCard.module.css';
 
@@ -13,7 +14,7 @@ const BusCard = ({ bus, handleReserveSeat }) => {
     <div className={styles.card}>
       <div className={styles.header}>
         <div className={styles.headerLeft}>
-          <h4>CTB</h4>
+        <h4 style={{ textTransform: "uppercase", fontWeight: "bold" }}>{bus.busId.sector}</h4>
           {bus.busId ? (
             <p className={styles.busNumber}>{bus.busId.busNumber}</p> // Display the bus number
           ) : (
@@ -21,11 +22,12 @@ const BusCard = ({ bus, handleReserveSeat }) => {
           )}
         </div>
         <div className={styles.headerCenter}>
-          <h4>Stops @ {bus.endCity}</h4>
+          <h4  style={{ textTransform: "uppercase", fontWeight: "bold" }}>Stops @ {bus.endCity}</h4>
           {/* <h4> ROUTE#{bus.busId.routeNumber}</h4> */}
         </div>
         <div className={styles.headerRight}>
-          <h4 className={styles.cardx}>{bus.busRouteType}</h4>
+          <h4 className={styles.cardx} style={{ textTransform: "uppercase", fontWeight: "bold" }}>{bus.busRouteType}</h4>
+          <h4 className={styles.cardx} style={{ textTransform: "uppercase", fontWeight: "bold" }}>{bus.routeWay}</h4>
         </div>
       </div>
       <div className={styles.content}>

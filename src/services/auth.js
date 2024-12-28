@@ -1,4 +1,4 @@
-//auth.js
+//src/services/auth.js
 const BASE_URL = 'http://localhost:5000/api/auth'; // Ensure this points to your backend
 
 // Signup function

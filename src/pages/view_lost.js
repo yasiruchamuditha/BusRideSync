@@ -1,3 +1,4 @@
+//src/pages/view_lost.js
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 

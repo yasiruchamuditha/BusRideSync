@@ -1,3 +1,4 @@
+//src/pages/lagguage.js
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import axiosInstance from '../utils/axiosInstance';

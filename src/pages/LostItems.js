@@ -1,4 +1,4 @@
-// src/pages/LostItems.js
+//src/pages/LostItems.js
 import React, { useEffect, useState } from 'react';
 import { getLostItems } from '../services/lostService';
 import LostItemCard from '../components/LostItemCard';
