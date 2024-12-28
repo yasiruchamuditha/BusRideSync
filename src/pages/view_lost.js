@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 
-const BASE_URL = 'http://localhost:5000/api/lost'; // Replace with your actual backend URL
+const BASE_URL = 'http://localhost:5000/api/lost'; 
 
 export default function ViewLostItems() {
   const [lostItems, setLostItems] = useState([]);
