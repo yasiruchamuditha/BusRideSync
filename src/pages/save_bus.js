@@ -1,10 +1,10 @@
-//src/pages/save_bus.js
 import { useState, useEffect } from 'react';
 import axiosInstance from '../utils/axiosInstance';
-import { useRouter } from 'next/router'; // Import useRouter hook
+import { useRouter } from 'next/router';
 
-const BASE_URL = 'http://localhost:5000/api/buses';
-const ROUTES_URL = 'http://localhost:5000/api/routes';
+const BASE_URL = 'http://localhost:5000/api/buses'; // URL to submit bus data
+const ROUTES_URL = 'http://localhost:5000/api/routes'; // URL to fetch routes
+const USERS_URL = 'http://localhost:5000/api/admin/operators'; // URL to fetch users
 
 export default function RegisterBus() {
   const [formData, setFormData] = useState({
@@ -12,22 +12,29 @@ export default function RegisterBus() {
     conductorNtcRegNumber: '',
     driverNtcRegNumber: '',
     busNumber: '',
-    capacity: '',
+    capacity: '50',// Default value
     busType: 'Normal', // Default value
     sector: 'Government [CTB]', // Default value
     route: '',
     routeNo: '',
+    operator: '',
   });
 
-  const [routes, setRoutes] = useState([]);
+  const [routes, setRoutes] = useState([]);// State to store routes
+  const [users, setUsers] = useState([]); // State to store users
 
-  const router = useRouter(); // Initialize useRouter hook
+  const router = useRouter();
 
   useEffect(() => {
-    // Fetch routes for the dropdowns
+    // Fetch routes for the dropdown
     axiosInstance.get(ROUTES_URL)
       .then(response => setRoutes(response.data))
       .catch(error => console.error('Error fetching routes:', error));
+    
+    // Fetch users for the operator dropdown
+    axiosInstance.get(USERS_URL)
+      .then(response => setUsers(response.data))
+      .catch(error => console.error('Error fetching users:', error));
   }, []);
 
   const handleChange = (e) => {
@@ -37,8 +44,8 @@ export default function RegisterBus() {
       const selectedRoute = routes.find(route => route.routeName === value);
       setFormData({
         ...formData,
-        [name]: value, // Set the route name in formData
-        routeNo: selectedRoute ? selectedRoute.routeNumber : '', // Set routeNo based on selected route
+        [name]: value,
+        routeNo: selectedRoute ? selectedRoute.routeNumber : '',
       });
     } else {
       setFormData({ ...formData, [name]: value });
@@ -213,6 +220,24 @@ export default function RegisterBus() {
             required
             disabled // Disable the input field to prevent manual changes
           />
+        </div>
+
+        {/* Operator */}
+        <div className="mb-4">
+          <label htmlFor="operator" className="block text-sm font-medium text-gray-700">Operator</label>
+          <select
+            id="operator"
+            name="operator"
+            value={formData.operator}
+            onChange={handleChange}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+            required
+          >
+            <option value="">Select an Operator</option>
+            {users.map((user) => (
+              <option key={user._id} value={user._id}>{user.name}</option>
+            ))}
+          </select>
         </div>
 
         <button
