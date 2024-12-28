@@ -1,3 +1,4 @@
+//src/pages/SeatLayout.js
 import React, { useEffect, useState } from "react";
 import styles from "../styles/SeatLayout.module.css";
 

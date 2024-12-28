@@ -1,3 +1,4 @@
+//src/pages/admin.js
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';

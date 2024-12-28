@@ -1,4 +1,4 @@
-// src/components/LostItemCard.js
+//src/components/LostItemCard.js
 import React from 'react';
 
 const LostItemCard = ({ item }) => {

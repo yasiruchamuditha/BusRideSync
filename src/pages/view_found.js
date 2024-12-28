@@ -1,3 +1,4 @@
+//src/pages/view_found.js
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../utils/axiosInstance'; // Importing axios instance
 

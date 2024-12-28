@@ -1,6 +1,7 @@
+//src/services/authService.js
 import axios from 'axios';
 
-const AUTH_URL = 'http://localhost:5000/api/auth';
+const AUTH_URL = process.env.NEXT_PUBLIC_AUTH_URL; // Use environment variable
 
 export const fetchAccessToken = async () => {
   try {

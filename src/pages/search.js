@@ -1,3 +1,4 @@
+//src/pages/search.js
 import { useState, useEffect } from 'react';                  // Import the useState and useEffect hooks
 import { useRouter } from 'next/router';                      // Import the useRouter hook
 import { fetchRoutes } from '../services/routeService';       // Import the service

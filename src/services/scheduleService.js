@@ -1,4 +1,4 @@
-// src/services/scheduleService.js
+//src/services/scheduleService.js
 import axios from 'axios';
 
 const BASE_URL = 'http://localhost:5000/api/schedules'; // base URL
