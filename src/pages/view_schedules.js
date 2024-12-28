@@ -40,28 +40,28 @@ export default function ViewSchedules() {
       <h2 className="text-3xl font-bold text-green-700 mb-6">View Schedules</h2>
       <div className="bg-white p-6 rounded-lg shadow-lg w-full overflow-x-auto">
         <table className="min-w-full bg-white">
-          <thead>
-            <tr>
-              <th className="px-4 py-2 border-b-2 border-gray-300">Bus Number</th>
-              {/* <th className="px-4 py-2 border-b-2 border-gray-300">Route</th> */}
-              <th className="px-4 py-2 border-b-2 border-gray-300">Bus Route Type</th>
-              <th className="px-4 py-2 border-b-2 border-gray-300">Start City</th>
-              <th className="px-4 py-2 border-b-2 border-gray-300">Departure Date</th>
-              <th className="px-4 py-2 border-b-2 border-gray-300">Departure Time</th>
-              <th className="px-4 py-2 border-b-2 border-gray-300">End City</th>
-              <th className="px-4 py-2 border-b-2 border-gray-300">Arrival Date</th>
-              <th className="px-4 py-2 border-b-2 border-gray-300">Arrival Time</th>
-              <th className="px-4 py-2 border-b-2 border-gray-300">Estimated Time</th>
-              <th className="px-4 py-2 border-b-2 border-gray-300">Estimated Distance</th>
-              <th className="px-4 py-2 border-b-2 border-gray-300">Available Seats</th>
-              <th className="px-4 py-2 border-b-2 border-gray-300">Actions</th> {/* New column for actions */}
-            </tr>
-          </thead>
+        <thead>
+          <tr>
+            <th className="px-4 py-2 border-b-2 border-gray-300">Bus Number</th>
+            <th className="px-4 py-2 border-b-2 border-gray-300">Route</th>
+            <th className="px-4 py-2 border-b-2 border-gray-300">Bus Route Type</th>
+            <th className="px-4 py-2 border-b-2 border-gray-300">Start City</th>
+            <th className="px-4 py-2 border-b-2 border-gray-300">Departure Date</th>
+            <th className="px-4 py-2 border-b-2 border-gray-300">Departure Time</th>
+            <th className="px-4 py-2 border-b-2 border-gray-300">End City</th>
+            <th className="px-4 py-2 border-b-2 border-gray-300">Arrival Date</th>
+            <th className="px-4 py-2 border-b-2 border-gray-300">Arrival Time</th>
+            <th className="px-4 py-2 border-b-2 border-gray-300">Estimated Time</th>
+            <th className="px-4 py-2 border-b-2 border-gray-300">Estimated Distance</th>
+            <th className="px-4 py-2 border-b-2 border-gray-300">Available Seats</th>
+            <th className="px-4 py-2 border-b-2 border-gray-300">Actions</th>
+          </tr>
+        </thead>
           <tbody>
             {schedules.map((schedule) => (
               <tr key={schedule._id}>
                 <td className="px-4 py-2 border-b border-gray-300">{schedule.busId ? schedule.busId.busNumber : 'N/A'}</td>
-                {/* <td className="px-4 py-2 border-b border-gray-300">{schedule.route ? schedule.route.routeName : 'N/A'}</td> */}
+                <td className="px-4 py-2 border-b border-gray-300">{schedule.route ? schedule.route.routeName : 'N/A'}</td> 
                 <td className="px-4 py-2 border-b border-gray-300">{schedule.busRouteType}</td>
                 <td className="px-4 py-2 border-b border-gray-300">{schedule.startCity}</td>
                 <td className="px-4 py-2 border-b border-gray-300">{new Date(schedule.departureDate).toLocaleDateString()}</td>

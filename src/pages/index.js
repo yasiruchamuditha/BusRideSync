@@ -10,7 +10,7 @@ const Home = () => {
     // Simulate loading time
     const timer = setTimeout(() => {
       router.push('/login'); // Redirect to the login page after 4 seconds
-    }, 4250);
+    }, 3050);
 
     return () => clearTimeout(timer); // Cleanup the timer
   }, [router]);
