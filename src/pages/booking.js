@@ -1,3 +1,4 @@
+//src/pages/booking.js
 import { useState, useEffect } from 'react';
 
 export default function Booking() {

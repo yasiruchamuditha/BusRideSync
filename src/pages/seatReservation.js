@@ -1,4 +1,5 @@
 
+//src/pages/seatReservation.js
 import React from 'react';
 import { useRouter } from 'next/router';
 import BusCard from '../components/BusCard';

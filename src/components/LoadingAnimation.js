@@ -1,4 +1,4 @@
-// components/LoadingAnimation.js
+//src/components/LoadingAnimation.js
 import React, { useState, useEffect } from 'react';
 
 const LoadingAnimation = () => {

@@ -1,4 +1,4 @@
-// pages/index.js
+//src/pages/index.js
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import LoadingAnimation from '../components/LoadingAnimation';

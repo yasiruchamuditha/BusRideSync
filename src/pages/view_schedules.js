@@ -1,3 +1,4 @@
+//src/pages/view_schedules.js
 import { useEffect, useState } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 
