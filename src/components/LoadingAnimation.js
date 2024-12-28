@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 const LoadingAnimation = () => {
   const [visibleText, setVisibleText] = useState('');
-  const fullText = 'SYNC YOUR RIDES WITH RIDESYNC SEAMLESSLY';
+  const fullText = 'SYNC YOUR RIDES WITH RIDESYNC';
 
   useEffect(() => {
     let index = 0;

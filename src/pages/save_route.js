@@ -22,32 +22,37 @@ export default function CreateRoute() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
     try {
-      // Send the form data to the server
+      const token = localStorage.getItem('token'); // Retrieve token
+      console.log('Submitting route with data:', formData);
+      console.log('Using token:', token);
+  
       const response = await axiosInstance.post(BASE_URL, formData, {
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
       });
-
-      alert('Route created successfully!');
+  
+      alert('Route saved successfully!');
       console.log(response.data);
-
-      // Redirect to the routes list page after successful submission
       router.push('/admin');
+  
+      // Redirect or update UI after successful submission
     } catch (error) {
-      if (error.message === 'Network Error') {
-        alert('Failed to connect to the server. Please check your internet connection and try again.');
-      } else if (error.response && error.response.status === 404) {
-        alert('The requested resource was not found. Please check the endpoint URL.');
-      } else if (error.response && error.response.status === 500) {
-        alert('Server error occurred. Please try again later.');
+      console.error('Error saving route:', error);
+      if (error.response) {
+        alert(`Error: ${error.response.status} - ${error.response.statusText}`);
+        console.error('Response data:', error.response.data);
+      } else if (error.request) {
+        alert('Network error: No response received from the server.');
+        console.error('Request details:', error.request);
       } else {
-        alert('Failed to create the route. Please try again.');
+        alert('Error setting up the request.');
+        console.error('Error message:', error.message);
       }
-      console.error('Error creating the route:', error);
-        // Redirect to the routes list page after successful submission
-        router.push('/admin');
+      router.push('/admin');
     }
   };
 
