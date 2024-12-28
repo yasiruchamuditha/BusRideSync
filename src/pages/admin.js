@@ -44,7 +44,7 @@ export default function Dashboard() {
               onClick={() => router.push('/save_schedule')}
               className="mt-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
             >
-              Add Schedule
+              Add Schedules
             </button>
             <button
               onClick={() => router.push('/view_schedules')}
@@ -66,7 +66,7 @@ export default function Dashboard() {
               onClick={() => router.push('/save_route')}
               className="mt-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
             >
-              Add Route
+              Add Routes
             </button>
             <button
               onClick={() => router.push('/view_routes')}
@@ -104,13 +104,13 @@ export default function Dashboard() {
               onClick={() => router.push('/lost')}
               className="mt-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
             >
-              View Lost Items
+              Add Lost Items
             </button>
             <button
               onClick={() => router.push('/view_lost')}
               className="mt-4 ml-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
             >
-              View Lost
+              View Lost Items
             </button>
           </div>
         </div>
@@ -126,13 +126,13 @@ export default function Dashboard() {
               onClick={() => router.push('/found')}
               className="mt-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
             >
-              View Found Items
+              Add Found Items
             </button>
             <button
               onClick={() => router.push('/view_found')}
               className="mt-4 ml-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
             >
-              View Found
+              View Found Items
             </button>
           </div>
         </div>
@@ -164,7 +164,7 @@ export default function Dashboard() {
               onClick={() => router.push('/save_bus')}
               className="mt-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
             >
-              Add Bus
+              Add Buses 
             </button>
             <button
               onClick={() => router.push('/view_buses')}

@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 import { useRouter } from 'next/router'; // Import useRouter hook
 
 const BASE_URL = 'http://localhost:5000/api/buses';
+const ROUTES_URL = 'http://localhost:5000/api/routes';
 
 export default function RegisterBus() {
   const [formData, setFormData] = useState({
@@ -11,16 +12,36 @@ export default function RegisterBus() {
     driverNtcRegNumber: '',
     busNumber: '',
     capacity: '',
-    busType: '',
+    busType: 'Normal', // Default value
+    sector: 'Government [CTB]', // Default value
     route: '',
     routeNo: '',
   });
 
+  const [routes, setRoutes] = useState([]);
+
   const router = useRouter(); // Initialize useRouter hook
+
+  useEffect(() => {
+    // Fetch routes for the dropdowns
+    axiosInstance.get(ROUTES_URL)
+      .then(response => setRoutes(response.data))
+      .catch(error => console.error('Error fetching routes:', error));
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+
+    if (name === 'route') {
+      const selectedRoute = routes.find(route => route.routeName === value);
+      setFormData({
+        ...formData,
+        [name]: value, // Set the route name in formData
+        routeNo: selectedRoute ? selectedRoute.routeNumber : '', // Set routeNo based on selected route
+      });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -58,7 +79,7 @@ export default function RegisterBus() {
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg w-full max-w-3xl">
         {/* NTC Registration Number */}
         <div className="mb-4">
-          <label htmlFor="ntcRegNumber" className="block text-sm font-medium text-gray-700">NTC Registration Number</label>
+          <label htmlFor="ntcRegNumber" className="block text-sm font-medium text-gray-700">Bus NTC Registration Number</label>
           <input
             type="text"
             id="ntcRegNumber"
@@ -130,29 +151,52 @@ export default function RegisterBus() {
         {/* Bus Type */}
         <div className="mb-4">
           <label htmlFor="busType" className="block text-sm font-medium text-gray-700">Bus Type</label>
-          <input
-            type="text"
+          <select
             id="busType"
             name="busType"
             value={formData.busType}
             onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
             required
-          />
+          >
+            <option value="Normal">Normal</option>
+            <option value="Semi Luxury">Semi Luxury</option>
+            <option value="Luxury">Luxury</option>
+          </select>
+        </div>
+
+        {/* Sector */}
+        <div className="mb-4">
+          <label htmlFor="sector" className="block text-sm font-medium text-gray-700">Sector</label>
+          <select
+            id="sector"
+            name="sector"
+            value={formData.sector}
+            onChange={handleChange}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+            required
+          >
+            <option value="Government [CTB]">Government [CTB]</option>
+            <option value="Private">Private</option>
+          </select>
         </div>
 
         {/* Route */}
         <div className="mb-4">
           <label htmlFor="route" className="block text-sm font-medium text-gray-700">Route</label>
-          <input
-            type="text"
+          <select
             id="route"
             name="route"
-            value={formData.route}
+            value={formData.route || ''} // Use route name if available, else empty string
             onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
             required
-          />
+          >
+            <option value="">Select a Route</option>
+            {routes.map((route) => (
+              <option key={route.routeName} value={route.routeName}>{route.routeName}</option>
+            ))}
+          </select>
         </div>
 
         {/* Route Number */}
@@ -166,6 +210,7 @@ export default function RegisterBus() {
             onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
             required
+            disabled // Disable the input field to prevent manual changes
           />
         </div>
 
