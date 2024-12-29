@@ -3,10 +3,10 @@ import { useRouter } from 'next/router';
 import styles from '../styles/SeatLayout.module.css';
 import axiosInstance from '../utils/axiosInstance'; // Import Axios instance
 
-const SeatLayout = ({ selectedSeats, setSelectedSeats }) => {
+const SeatLayout = ({ setSelectedSeats, selectedSeats }) => {
   const router = useRouter();
   const { scheduleId } = router.query;
-  const [seats, setSeats] = useState({});
+  const [seats, setSeats] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const SeatLayout = ({ selectedSeats, setSelectedSeats }) => {
 
     axiosInstance.get(`/schedules/${scheduleId}/seats`)
       .then((response) => {
-        setSeats(response.data);
+        setSeats(response.data);     
       })
       .catch((error) => {
         console.error('Error fetching seat layout:', error);
@@ -22,19 +22,20 @@ const SeatLayout = ({ selectedSeats, setSelectedSeats }) => {
       });
   }, [scheduleId]);
 
-  const handleSeatClick = (seatId) => {
-    if (seats[seatId]?.isBooked) return;
+  const handleSeatClick = (seat) => {
+    console.log('Seat clicked', seat);
+    const seatNumber = seat.seatNumber;
+    setSelectedSeats(
+      selectedSeats.includes(seatNumber)
+        ? selectedSeats.filter((s) => s !== seatNumber)
+        : [...selectedSeats, seatNumber]
+    );
 
-    const newSelectedSeats = selectedSeats.includes(seatId)
-      ? selectedSeats.filter((id) => id !== seatId)
-      : [...selectedSeats, seatId];
-
-    setSelectedSeats(newSelectedSeats);
-
-    setSeats((prevSeats) => ({
-      ...prevSeats,
-      [seatId]: { ...prevSeats[seatId], seatAvailableState: 'processing' },
-    }));
+    setSeats((prevSeats) =>
+      prevSeats.map((s) =>
+        s.seatNumber === seatNumber ? { ...s, seatAvailableState: 'Processing' } : s
+      )
+    );
   };
 
   if (error) {
@@ -46,91 +47,115 @@ const SeatLayout = ({ selectedSeats, setSelectedSeats }) => {
       <h2 className={styles.title}>Book Your Seats</h2>
       <div className={styles.busLayout}>
         {/* Left Section */}
-        <div className={styles.section}>
-          {["A", "B", "C", "D", "E", "F", "G", "H", "I"].map((row) => (
-            <div key={row} className={styles.row}>
-              <button
-                className={`${styles.seat} ${
-                  seats[`${row}L1`]?.isBooked ? styles.booked :
-                  seats[`${row}L1`]?.seatAvailableState === "processing" ? styles.processing : styles.available
-                }`}
-                onClick={() => handleSeatClick(`${row}L1`)}
-                disabled={seats[`${row}L1`]?.isBooked}
-              >
-                {row}L1
-              </button>
-              <button
-                className={`${styles.seat} ${
-                  seats[`${row}L2`]?.isBooked ? styles.booked :
-                  seats[`${row}L2`]?.seatAvailableState === "processing" ? styles.processing : styles.available
-                }`}
-                onClick={() => handleSeatClick(`${row}L2`)}
-                disabled={seats[`${row}L2`]?.isBooked}
-              >
-                {row}L2
-              </button>
-            </div>
-          ))}
-        </div>
-
-        {/* Spacer between left and right sections */}
         <div className={styles.spacer}></div>
 
         {/* Right Section */}
-        <div className={styles.section}>
-          {["A", "B", "C", "D", "E", "F", "G", "H", "I"].map((row) => (
-            <div key={row} className={styles.row}>
-              <button
-                className={`${styles.seat} ${
-                  seats[`${row}R1`]?.isBooked ? styles.booked :
-                  seats[`${row}R1`]?.seatAvailableState === "processing" ? styles.processing : styles.available
-                }`}
-                onClick={() => handleSeatClick(`${row}R1`)}
-                disabled={seats[`${row}R1`]?.isBooked}
-              >
-                {row}R1
-              </button>
-              <button
-                className={`${styles.seat} ${
-                  seats[`${row}R2`]?.isBooked ? styles.booked :
-                  seats[`${row}R2`]?.seatAvailableState === "processing" ? styles.processing : styles.available
-                }`}
-                onClick={() => handleSeatClick(`${row}R2`)}
-                disabled={seats[`${row}R2`]?.isBooked}
-              >
-                {row}R2
-              </button>
-              <button
-                className={`${styles.seat} ${
-                  seats[`${row}R3`]?.isBooked ? styles.booked :
-                  seats[`${row}R3`]?.seatAvailableState === "processing" ? styles.processing : styles.available
-                }`}
-                onClick={() => handleSeatClick(`${row}R3`)}
-                disabled={seats[`${row}R3`]?.isBooked}
-              >
-                {row}R3
-              </button>
-            </div>
-          ))}
+      </div>
+
+      <div>
+        <div className="flex gap-10 mt-5">
+          <div className="flex flex-col gap-10">
+            {/* Right Side Seats */}
+            <SeatDisplay
+              seatLayout={seats}
+              handleSeatClick={handleSeatClick}
+              startWith="Right"
+            />
+            {/* Left Side Seats */}
+            <SeatDisplay
+              seatLayout={seats}
+              handleSeatClick={handleSeatClick}
+              startWith="Left"
+            />
+          </div>
+          <div>
+            <SeatDisplay
+              seatLayout={seats}
+              handleSeatClick={handleSeatClick}
+              startWith="Back"
+            />
+          </div>
         </div>
       </div>
 
-      {/* Back Row */}
-      <div className={`${styles.row} ${styles.backRow}`}>
-        {["J1", "J2", "J3", "J4", "J5"].map((seatId) => (
-          <button
-            key={seatId}
-            className={`${styles.seat} ${
-              seats[seatId]?.isBooked ? styles.booked :
-              seats[seatId]?.seatAvailableState === "processing" ? styles.processing : styles.available
-            }`}
-            onClick={() => handleSeatClick(seatId)}
-            disabled={seats[seatId]?.isBooked}
-          >
-            {seatId}
-          </button>
-        ))}
-      </div>
+      {/* {
+                makeBookingModel && (
+                    <PaymentGateWay
+                        setMakeBookingModel={setMakeBookingModel}
+                        selectedSeats={selectedSeats}
+                        setSeatProcessing={setSelectedSeats}
+                        scheduleId={scheduleId}
+                        // seatLayout={seatLayout}
+                        // setSeatLayout={setSeatLayout}
+                        totalAmount={selectedSeats.length * fare}
+                        // fetchSeatLayout={fetchSeatLayout}
+                        // bookingSuccess={bookingSuccess}
+                        // setBookingSuccess={setBookingSuccess}
+                    />
+                )
+            } */}
+    </div>
+  );
+};
+
+const Seat = ({ seat, handleSeatClick }) => {
+  return (
+    <button
+      className={`flex items-center justify-center rounded-md w-14 h-14 border-2 ${
+        seat.isBooked || seat.seatAvailableState === 'Booked'
+          ? 'bg-red-500 cursor-not-allowed text-white'
+          : seat.seatAvailableState === 'Processing'
+          ? 'bg-green-400 cursor-not-allowed'
+          : 'bg-transparent cursor-pointer text-black border-blue-400'
+      }`}
+      disabled={seat.seatAvailableState !== 'available'}
+      onClick={() => !seat.isBooked && handleSeatClick(seat)}
+    >
+      <p className="text-[14px] font-bold">{seat.position.charAt(0)}-{seat.seatNumber}</p>
+    </button>
+  );
+};
+
+const SeatDisplay = ({ seatLayout, handleSeatClick, startWith }) => {
+  // Group seats by their prefix (L1-1, L2, etc.)
+  const groupedSeats =
+    seatLayout
+      ?.filter((seat) => seat.position.startsWith(startWith)) // Filter relevant seats
+      ?.reduce((acc, seat) => {
+        let prefix = null;
+        if (startWith === 'Back') {
+          prefix = seat.position.split('-')[0]; // Extract prefix (e.g., "L1")
+        } else {
+          prefix = seat.position.split('-')[1]; // Extract prefix (e.g., "L1")
+        }
+        if (!acc[prefix]) {
+          acc[prefix] = [];
+        }
+        acc[prefix].push(seat);
+        return acc;
+      }, {}) || {}; // Fallback to an empty object
+
+  // Convert the grouped seats object into an array of arrays (sorted by prefix)
+  const seatColumns = Object.entries(groupedSeats)
+    .sort(([a], [b]) => a.localeCompare(b)) // Sort by prefix (L1, L2, etc.)
+    .map(([_, seats]) => seats);
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'row', gap: '20px' }}>
+      {seatColumns.map((column, index) => (
+        <div
+          key={index}
+          style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
+        >
+          {column.map((seat) => (
+            <Seat
+              key={seat.seatNumber}
+              seat={seat}
+              handleSeatClick={handleSeatClick}
+            />
+          ))}
+        </div>
+      ))}
     </div>
   );
 };

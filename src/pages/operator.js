@@ -36,22 +36,14 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl px-4">
         {/* Card: Search Bus Schedules */}
         <div
-          onClick={() => router.push('/search')}
+          onClick={() => router.push('/search_bus')}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
           <h3 className="text-xl font-bold text-green-600 mb-4">Search Bus Schedules</h3>
           <p className="text-gray-600">Find bus routes and schedules for your journey.</p>
         </div>
 
-        {/* Card: Book Bus Seats */}
-        <div
-          onClick={() => router.push('/booking')}
-          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
-        >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Book Bus Seats</h3>
-          <p className="text-gray-600">Reserve your seats and make secure payments for your trip.</p>
-        </div>
-
+  
         {/* Card: View Bookings */}
         <div
           onClick={() => router.push('/viewbooking')}
@@ -97,51 +89,6 @@ export default function Dashboard() {
           <p className="text-gray-600">Found Item List in the journey.</p>
         </div>
 
-        {/* Card: Luggage Booking */}
-        <div
-          onClick={() => router.push('/luggage')}
-          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
-        >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Luggage Booking</h3>
-          <p className="text-gray-600">Reserve and manage luggage for your journey.</p>
-        </div>
-
-        {/* Card: View Luggage Booking */}
-        <div
-          onClick={() => router.push('/viewluggage')}
-          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
-        >
-          <h3 className="text-xl font-bold text-green-600 mb-4">View Luggage Bookings</h3>
-          <p className="text-gray-600">Check all your luggage reservations in one place.</p>
-        </div>
-
-        {/* Card: Seasonal Tours */}
-        <div
-          onClick={() => router.push('/seasonaltours')}
-          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
-        >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Seasonal Tours</h3>
-          <p className="text-gray-600">Reserve special seasonal tours with ease.</p>
-        </div>
-
-        {/* Card: Profile Settings */}
-        <div
-          onClick={() => router.push('/profile')}
-          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
-        >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Profile Settings</h3>
-          <p className="text-gray-600">Update your personal profile and preferences.</p>
-        </div>
-
-        
-        {/* Card: Profile Settings */}
-        <div
-          onClick={() => router.push('/SeatLayout')}
-          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
-        >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Seat Layout</h3>
-          <p className="text-gray-600">Seat Layout.</p>
-        </div>
       </div>
 
       {/* Logout Button */}
