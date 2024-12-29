@@ -3,20 +3,23 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import BusCardNoReserve from '../components/BusCardNoReserve';
 import SeatLayout from '../components/SeatLayout';
-import { fetchBusDetails } from '../services/busService'; // Import the service to fetch bus details
+import { fetchBusDetails } from '../services/busService';
+import PaymentGateWay from '../components/PaymentGateWay';
+import Cookies from 'js-cookie';
 
 const SeatReservation = () => {
   const router = useRouter();
-  const { scheduleId } = router.query; // Get the schedule ID from the query
+  const { scheduleId } = router.query;
 
   const [bus, setBus] = useState(null);
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [proceedToPayment, setProceedToPayment] = useState(false);
 
   useEffect(() => {
     if (scheduleId) {
       const fetchBusData = async () => {
         try {
-          const busData = await fetchBusDetails(scheduleId); // Fetch bus details using the schedule ID
+          const busData = await fetchBusDetails(scheduleId);
           setBus(busData);
         } catch (error) {
           console.error('Error fetching bus details:', error);
@@ -27,22 +30,28 @@ const SeatReservation = () => {
   }, [scheduleId]);
 
   const handleProceedToPayment = () => {
-    const totalPrice = bus.ticketPrice * selectedSeats.length;
-    const tax = totalPrice * 0.05;
-    const finalPrice = totalPrice + tax;
-
-    router.push({
-      pathname: '/payment',
-      query: {
-        scheduleId,
-        selectedSeats: selectedSeats.join(','),
-        totalPrice: finalPrice.toFixed(2),
-      },
-    });
+    setProceedToPayment(true);
   };
 
   if (!bus) {
     return <div>Loading...</div>;
+  }
+
+  const totalPrice = bus.ticketPrice * selectedSeats.length;
+  const tax = totalPrice * 0.05;
+  const finalPrice = totalPrice + tax;
+
+  if (proceedToPayment) {
+    const token = Cookies.get('token'); // Retrieve token from cookies
+
+    return (
+      <PaymentGateWay
+        totalAmount={finalPrice.toFixed(2)}
+        selectedSeats={selectedSeats}
+        scheduleId={scheduleId}
+        token={token}
+      />
+    );
   }
 
   return (

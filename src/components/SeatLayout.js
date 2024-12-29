@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import styles from '../styles/SeatLayout.module.css';
+import styles from '../styles/SeatLayout.module.css'; // Import the new CSS file
 import axiosInstance from '../utils/axiosInstance'; // Import Axios instance
 
 const SeatLayout = ({ setSelectedSeats, selectedSeats }) => {
@@ -46,22 +46,13 @@ const SeatLayout = ({ setSelectedSeats, selectedSeats }) => {
     <div>
       <h2 className={styles.title}>Book Your Seats</h2>
       <div className={styles.busLayout}>
-        {/* Left Section */}
-        <div className={styles.spacer}></div>
-
-        {/* Right Section */}
-      </div>
-
-      <div>
         <div className="flex gap-10 mt-5">
           <div className="flex flex-col gap-10">
-            {/* Right Side Seats */}
             <SeatDisplay
               seatLayout={seats}
               handleSeatClick={handleSeatClick}
               startWith="Right"
             />
-            {/* Left Side Seats */}
             <SeatDisplay
               seatLayout={seats}
               handleSeatClick={handleSeatClick}
@@ -77,23 +68,6 @@ const SeatLayout = ({ setSelectedSeats, selectedSeats }) => {
           </div>
         </div>
       </div>
-
-      {/* {
-                makeBookingModel && (
-                    <PaymentGateWay
-                        setMakeBookingModel={setMakeBookingModel}
-                        selectedSeats={selectedSeats}
-                        setSeatProcessing={setSelectedSeats}
-                        scheduleId={scheduleId}
-                        // seatLayout={seatLayout}
-                        // setSeatLayout={setSeatLayout}
-                        totalAmount={selectedSeats.length * fare}
-                        // fetchSeatLayout={fetchSeatLayout}
-                        // bookingSuccess={bookingSuccess}
-                        // setBookingSuccess={setBookingSuccess}
-                    />
-                )
-            } */}
     </div>
   );
 };
@@ -141,12 +115,9 @@ const SeatDisplay = ({ seatLayout, handleSeatClick, startWith }) => {
     .map(([_, seats]) => seats);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', gap: '20px' }}>
+    <div className={styles.seatColumnContainer}>
       {seatColumns.map((column, index) => (
-        <div
-          key={index}
-          style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
-        >
+        <div key={index} className={styles.seatColumn}>
           {column.map((seat) => (
             <Seat
               key={seat.seatNumber}
