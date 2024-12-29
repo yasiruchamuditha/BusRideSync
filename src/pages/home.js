@@ -44,13 +44,13 @@ export default function Dashboard() {
         </div>
 
         {/* Card: Book Bus Seats */}
-        <div
+        {/* <div
           onClick={() => router.push('/booking')}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
           <h3 className="text-xl font-bold text-green-600 mb-4">Book Bus Seats</h3>
           <p className="text-gray-600">Reserve your seats and make secure payments for your trip.</p>
-        </div>
+        </div> */}
 
         {/* Card: View Bookings */}
         <div
@@ -116,32 +116,32 @@ export default function Dashboard() {
         </div>
 
         {/* Card: Seasonal Tours */}
-        <div
+        {/* <div
           onClick={() => router.push('/seasonaltours')}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
           <h3 className="text-xl font-bold text-green-600 mb-4">Seasonal Tours</h3>
           <p className="text-gray-600">Reserve special seasonal tours with ease.</p>
-        </div>
+        </div> */}
 
         {/* Card: Profile Settings */}
-        <div
+        {/* <div
           onClick={() => router.push('/profile')}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
           <h3 className="text-xl font-bold text-green-600 mb-4">Profile Settings</h3>
           <p className="text-gray-600">Update your personal profile and preferences.</p>
-        </div>
+        </div> */}
 
         
         {/* Card: Profile Settings */}
-        <div
+        {/* <div
           onClick={() => router.push('/SeatLayout')}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
           <h3 className="text-xl font-bold text-green-600 mb-4">Seat Layout</h3>
           <p className="text-gray-600">Seat Layout.</p>
-        </div>
+        </div> */}
       </div>
 
       {/* Logout Button */}

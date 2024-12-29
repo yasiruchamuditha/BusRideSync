@@ -50,7 +50,7 @@ const SeatReservation = () => {
       <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-6xl mt-6">
         <h1 className="text-2xl font-bold mb-6">Seat Reservation</h1>
         <BusCardNoReserve bus={bus} />
-        <SeatLayout selectedSeats={selectedSeats} setSelectedSeats={setSelectedSeats} />
+        <SeatLayout fare={bus.ticketPrice} selectedSeats={selectedSeats} setSelectedSeats={setSelectedSeats} />
         <div className="w-full flex justify-end mt-4">
           <button
             onClick={handleProceedToPayment}

@@ -127,7 +127,7 @@ export default function Dashboard() {
               Manage bus bookings seamlessly.
             </p>
             <button
-              onClick={() => router.push('/viewbooking')}
+              onClick={() => router.push('/view_booking')}
               className="mt-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
             >
               View Bookings
@@ -188,7 +188,10 @@ export default function Dashboard() {
               Manage luggage bookings and details.
             </p>
             <button
-              onClick={() => router.push('/update_bus')}
+              // onClick={() => router.push('/update_bus')}
+              onClick={() => {
+                alert('This feature is under development.');
+              }}
               className="mt-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
             >
               View Luggage
@@ -204,7 +207,10 @@ export default function Dashboard() {
               Access detailed reports and analytics to monitor and improve operations.
             </p>
             <button
-              onClick={() => router.push('/reports')}
+              // onClick={() => router.push('/reports')}
+              onClick={() => {
+                alert('This feature is under development.');
+              }}
               className="mt-4 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
             >
               View Reports
