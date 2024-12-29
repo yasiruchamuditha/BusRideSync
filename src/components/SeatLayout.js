@@ -78,22 +78,6 @@ const SeatLayout = ({ setSelectedSeats, selectedSeats }) => {
         </div>
       </div>
 
-      {/* {
-                makeBookingModel && (
-                    <PaymentGateWay
-                        setMakeBookingModel={setMakeBookingModel}
-                        selectedSeats={selectedSeats}
-                        setSeatProcessing={setSelectedSeats}
-                        scheduleId={scheduleId}
-                        // seatLayout={seatLayout}
-                        // setSeatLayout={setSeatLayout}
-                        totalAmount={selectedSeats.length * fare}
-                        // fetchSeatLayout={fetchSeatLayout}
-                        // bookingSuccess={bookingSuccess}
-                        // setBookingSuccess={setBookingSuccess}
-                    />
-                )
-            } */}
     </div>
   );
 };
