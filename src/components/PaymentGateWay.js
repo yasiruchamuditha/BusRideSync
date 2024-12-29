@@ -10,6 +10,7 @@ const PaymentGateWay = ({
   selectedSeats,
   token,
   scheduleId,
+  // setMakeBookingModel,
 }) => {
   const router = useRouter();
 
