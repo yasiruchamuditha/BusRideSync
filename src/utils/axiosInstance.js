@@ -1,8 +1,8 @@
-//src/utils/axiosInstance.js
+// src/utils/axiosInstance.js
 import axios from 'axios';
 import { fetchAccessToken } from '../services/authService';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL; // Use environment variable
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
 const axiosInstance = axios.create({
   baseURL: API_URL,

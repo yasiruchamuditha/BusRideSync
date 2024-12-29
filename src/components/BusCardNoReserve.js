@@ -1,8 +1,8 @@
-// src/components/BusCard.js
+// src/components/BusCardNoReserve.js
 import React from 'react';
 import styles from '../styles/BusCard.module.css';
 
-const BusCard = ({ bus, handleReserveSeat }) => {
+const BusCardNoReserve = ({ bus }) => {
   // Format the dates to show only the date part
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -76,13 +76,6 @@ const BusCard = ({ bus, handleReserveSeat }) => {
                 <p className={styles.availableSeats}><strong>Available Seats:</strong> <span className={styles.availableSeatsNumber}>{bus.availableSeats}</span></p>
               </div>
             </div>
-            <div className={styles.section}>
-              <button
-                onClick={() => handleReserveSeat(bus.route, bus.departureTime, bus.arrivalTime, bus.ticketPrice)}
-                className={styles.reserveButton}>
-                Reserve Seat
-              </button>
-            </div>
           </div>
         </div>
       </div>
@@ -90,4 +83,4 @@ const BusCard = ({ bus, handleReserveSeat }) => {
   );
 };
 
-export default BusCard;
+export default BusCardNoReserve;
