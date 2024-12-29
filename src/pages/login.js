@@ -1,4 +1,3 @@
-//src/pages/login.js
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { login } from '../services/auth';
@@ -17,9 +16,13 @@ export default function Login() {
       if (response.token) {
         Cookies.set('token', response.token, { expires: 1 }); // Save token in cookies for 60 minutes
         Cookies.set('name', response.user.name); // Save name in cookies 
+        Cookies.set('role', response.user.role); // Save role in cookies
+        Cookies.set('email', response.user.email); // Save email in cookies
+        Cookies.set('id', response.user.id); // Save id in cookies
         localStorage.setItem('accessToken', response.token); // Save token in local storage
         localStorage.setItem('refreshToken', response.refreshToken); // Save refresh token in local storage
         localStorage.setItem('role', response.user.role); // Save role in local storage
+        localStorage.setItem('id', response.user.id); // Save id in local storage
         console.log('Login successful:', response);
         alert('Login successful!');
         

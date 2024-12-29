@@ -1,29 +1,24 @@
-//src/pages/search.js
-import { useState, useEffect } from 'react';                  // Import the useState and useEffect hooks
-import { useRouter } from 'next/router';                      // Import the useRouter hook
-import { fetchRoutes } from '../services/routeService';       // Import the service
-import { fetchSchedules } from '../services/scheduleService'; // Import the service
-import BusCard from '../components/BusCard';                  // Import the BusCard component
+// src/pages/search.js
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { fetchRoutes } from '../services/routeService';
+import { fetchSchedules } from '../services/scheduleService';
+import BusCard from '../components/BusCard';
 
-// Search component
 export default function Search() {
-  // State to hold the form data and results
-  const [startCity, setStartCity] = useState('');                 // State to hold the start city 
-  const [destination, setDestination] = useState('');             // State to hold the destination city
-  const [departureDate, setDepartureDate] = useState('');         // State to hold the departure date
-  const [results, setResults] = useState([]);                     // State to hold the search results
-  const [error, setError] = useState(null);                       // State to hold the error message
-  const [cities, setCities] = useState([]);                       // State to hold the list of cities  
+  const [startCity, setStartCity] = useState('');
+  const [destination, setDestination] = useState('');
+  const [departureDate, setDepartureDate] = useState('');
+  const [results, setResults] = useState([]);
+  const [error, setError] = useState(null);
+  const [cities, setCities] = useState([]);
 
-  // Router instance
   const router = useRouter();
 
   useEffect(() => {
-    // Fetch route data from the API
     const fetchRouteData = async () => {
       try {
-        const data = await fetchRoutes(); // Use the service to fetch routes
-        // Extract unique cities from startCity and endCity
+        const data = await fetchRoutes();
         const uniqueCities = Array.from(new Set([...data.map(route => route.startCity), ...data.map(route => route.endCity)]));
         setCities(uniqueCities);
       } catch (error) {
@@ -34,44 +29,33 @@ export default function Search() {
     fetchRouteData();
   }, []);
 
-  // Function to fetch schedules from the API
   const handleSearch = async (e) => {
     e.preventDefault();
-
     try {
-      const data = await fetchSchedules(startCity, destination, departureDate); // Use the service to fetch schedules
-      console.log('Fetched data:', data); // Debug log
-      setResults(data); // Set the results state with the fetched data
-      setError(null); // Clear any previous error state
+      const data = await fetchSchedules(startCity, destination, departureDate);
+      console.log('Fetched data:', data);
+      setResults(data);
+      setError(null);
     } catch (error) {
       console.error('Error fetching schedules:', error);
-      setError(error.message); // Set error state with the error message
+      setError(error.message);
     }
   };
 
-  // Function to handle reserve seat
-  const handleReserveSeat = (route, departure, arrival, price) => {
+  const handleReserveSeat = (scheduleId) => {
     router.push({
       pathname: '/seatReservation',
-      query: {
-        route,
-        departure,
-        arrival,
-        price,
-        startCity,
-        destination,
-        departureDate,
-      },
+      query: { scheduleId },
     });
+    console.log('Reserve seat for schedule ID:', scheduleId);
   };
 
   return (
     <div className="bg-green-200 min-h-screen flex flex-col items-center justify-start">
       <form onSubmit={handleSearch} className="bg-white p-6 rounded-lg shadow-md flex flex-wrap space-x-4 max-w-6xl w-full mt-6">
+        {/* Form Fields */}
         <div className="flex flex-col flex-grow w-1/5">
-          <label htmlFor="startCity" className="text-sm font-medium text-gray-700">
-            From :
-          </label>
+          <label htmlFor="startCity" className="text-sm font-medium text-gray-700">From :</label>
           <select
             id="startCity"
             name="startCity"
@@ -88,9 +72,7 @@ export default function Search() {
         </div>
 
         <div className="flex flex-col flex-grow w-1/5">
-          <label htmlFor="destination" className="text-sm font-medium text-gray-700">
-            To :
-          </label>
+          <label htmlFor="destination" className="text-sm font-medium text-gray-700">To :</label>
           <select
             id="destination"
             name="destination"
@@ -107,9 +89,7 @@ export default function Search() {
         </div>
 
         <div className="flex flex-col flex-grow w-1/5">
-          <label htmlFor="departureDate" className="text-sm font-medium text-gray-700">
-            Travel Date
-          </label>
+          <label htmlFor="departureDate" className="text-sm font-medium text-gray-700">Travel Date</label>
           <input
             type="date"
             id="departureDate"
@@ -136,7 +116,7 @@ export default function Search() {
       {results.length > 0 ? (
         <div className="w-full max-w-6xl mx-auto mt-8">
           {results.map((result, index) => (
-            <BusCard key={index} bus={result} handleReserveSeat={handleReserveSeat} />
+            <BusCard key={index} bus={result} handleReserveSeat={() => handleReserveSeat(result._id)} />
           ))}
         </div>
       ) : (
