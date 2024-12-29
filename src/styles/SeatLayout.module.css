@@ -1,3 +1,4 @@
+/* SeatLayoutNew.module.css */
 .title {
   text-align: center;
   font-size: 24px;
@@ -10,18 +11,16 @@
   justify-content: center;
 }
 
-.section {
+.seatColumnContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.seatColumn {
   display: flex;
   flex-direction: column;
-}
-
-.row {
-  display: flex;
-  margin-bottom: 10px;
-}
-
-.spacer {
-  width: 50px; /* Adjust the width as needed */
+  gap: 10px;
 }
 
 .seat {
@@ -49,12 +48,6 @@
 
 .seat.selected {
   background-color: #2196f3; /* Blue */
-}
-
-.backRow {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
 }
 
 .error {
