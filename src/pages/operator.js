@@ -39,8 +39,26 @@ export default function Dashboard() {
           onClick={() => router.push('/search_bus_op')}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Search My Schedules</h3>
-          <p className="text-gray-600">Find bus routes and schedules for your journey.</p>
+          <h3 className="text-xl font-bold text-green-600 mb-4">Search Schedules</h3>
+          <p className="text-gray-600">Find bus  schedules for your journey.</p>
+        </div>
+
+         {/* Card: save Bus  */}
+         <div
+          onClick={() => router.push('/save_bus_op')}
+          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
+        >
+          <h3 className="text-xl font-bold text-green-600 mb-4">Save Bus</h3>
+          <p className="text-gray-600">Create Buses for journey.</p>
+        </div>
+
+         {/* Card: create Bus Schedules */}
+         <div
+          onClick={() => router.push('/save_schedule_op')}
+          className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
+        >
+          <h3 className="text-xl font-bold text-green-600 mb-4">Save Schedules</h3>
+          <p className="text-gray-600">Save schedules for your journey.</p>
         </div>
 
   
