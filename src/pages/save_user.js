@@ -4,16 +4,18 @@ import axiosInstance from '../utils/axiosInstance';
 import { useRouter } from 'next/router';
 
 const RegisterUser = () => {
+  // State to manage form data
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: generatePassword(),
-    role: 'commuter', // Default value
+    role: 'commuter', // Default role
     mobile: '',
   });
 
   const router = useRouter();
 
+  // Function to generate a random password
   function generatePassword() {
     const length = 8;
     const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#@";
@@ -24,32 +26,36 @@ const RegisterUser = () => {
     return password;
   }
 
+  // Handle form field changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axiosInstance.post('/api/users', formData, {
+      await axiosInstance.post('/auth/signup', formData, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
       alert('User registered successfully!');
-      router.push('/admin/users');
+      router.push('/admin'); // Redirect to admin page after successful registration
     } catch (error) {
       alert('Error registering user. Please try again.');
       console.error('Error:', error);
     }
   };
 
+  // Generate a new password and update the state
   const handleGeneratePassword = () => {
     const newPassword = generatePassword();
     setFormData({ ...formData, password: newPassword });
   };
 
+  // Copy the generated password to the clipboard
   const handleCopyPassword = () => {
     navigator.clipboard.writeText(formData.password)
       .then(() => {
@@ -64,6 +70,7 @@ const RegisterUser = () => {
     <div className="min-h-screen bg-green-100 flex flex-col items-center py-8">
       <h2 className="text-3xl font-bold text-green-700 mb-6">Register User</h2>
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg w-full max-w-3xl">
+        {/* Name Field */}
         <div className="mb-4">
           <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
           <input
@@ -76,6 +83,7 @@ const RegisterUser = () => {
             required
           />
         </div>
+        {/* Email Field */}
         <div className="mb-4">
           <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
           <input
@@ -88,6 +96,7 @@ const RegisterUser = () => {
             required
           />
         </div>
+        {/* Password Field with Generate and Copy Buttons */}
         <div className="mb-4">
           <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
           <div className="flex">
@@ -117,6 +126,7 @@ const RegisterUser = () => {
             </button>
           </div>
         </div>
+        {/* Role Field */}
         <div className="mb-4">
           <label htmlFor="role" className="block text-sm font-medium text-gray-700">Role</label>
           <select
@@ -132,6 +142,7 @@ const RegisterUser = () => {
             <option value="admin">Admin</option>
           </select>
         </div>
+        {/* Mobile Field */}
         <div className="mb-4">
           <label htmlFor="mobile" className="block text-sm font-medium text-gray-700">Mobile</label>
           <input
@@ -144,6 +155,20 @@ const RegisterUser = () => {
             required
           />
         </div>
+          {/* Mobile Field */}
+          <div className="mb-4">
+          <label htmlFor="nic" className="block text-sm font-medium text-gray-700">NIC</label>
+          <input
+            type="text"
+            id="nic"
+            name="nic"
+            value={formData.nic}
+            onChange={handleChange}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+            required
+          />
+        </div>
+        {/* Submit Button */}
         <button
           type="submit"
           className="w-full py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"

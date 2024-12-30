@@ -2,14 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 
-const BASE_URL = 'http://localhost:5000/api/lost'; 
+// const BASE_URL = 'http://localhost:5000/api/lost'; 
 
 export default function ViewLostItems() {
   const [lostItems, setLostItems] = useState([]);
 
   useEffect(() => {
     // Fetch the list of lost items
-    axiosInstance.get(BASE_URL)
+    axiosInstance.get(`/lost`)
       .then(response => {
         setLostItems(response.data);
       })
@@ -34,7 +34,7 @@ const handleDelete = async (id) => {
     console.log('Deleting item with ID:', id);
     console.log('Using token:', token);
 
-    await axiosInstance.delete(`${BASE_URL}/${id}`, {
+    await axiosInstance.delete(`/lost/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -57,7 +57,7 @@ const handleDelete = async (id) => {
 
   const handleUpdateStatus = async (id) => {
     try {
-      await axiosInstance.put(`${BASE_URL}/${id}`, { status: 'found' });
+      await axiosInstance.put(`/lost/${id}`, { status: 'found' });
       setLostItems(lostItems.map(item => item._id === id ? { ...item, status: 'found' } : item));
       alert('Item status updated to found.');
     } catch (error) {

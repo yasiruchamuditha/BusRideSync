@@ -2,17 +2,13 @@ import { useState, useEffect } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 import { useRouter } from 'next/router';
 
-const BASE_URL = 'http://localhost:5000/api/buses'; // URL to submit bus data
-const ROUTES_URL = 'http://localhost:5000/api/routes'; // URL to fetch routes
-const USERS_URL = 'http://localhost:5000/api/admin/operators'; // URL to fetch users
-
 export default function RegisterBus() {
   const [formData, setFormData] = useState({
     ntcRegNumber: '',
     conductorNtcRegNumber: '',
     driverNtcRegNumber: '',
     busNumber: '',
-    capacity: '50',// Default value
+    capacity: '50', // Default value
     busType: 'Normal', // Default value
     sector: 'Government [CTB]', // Default value
     route: '',
@@ -20,19 +16,19 @@ export default function RegisterBus() {
     operator: '',
   });
 
-  const [routes, setRoutes] = useState([]);// State to store routes
+  const [routes, setRoutes] = useState([]); // State to store routes
   const [users, setUsers] = useState([]); // State to store users
 
   const router = useRouter();
 
   useEffect(() => {
     // Fetch routes for the dropdown
-    axiosInstance.get(ROUTES_URL)
+    axiosInstance.get('/routes')
       .then(response => setRoutes(response.data))
       .catch(error => console.error('Error fetching routes:', error));
     
     // Fetch users for the operator dropdown
-    axiosInstance.get(USERS_URL)
+    axiosInstance.get('/admin/operators')
       .then(response => setUsers(response.data))
       .catch(error => console.error('Error fetching users:', error));
   }, []);
@@ -56,7 +52,7 @@ export default function RegisterBus() {
     e.preventDefault();
     try {
       // Send form data using axiosInstance
-      const response = await axiosInstance.post(BASE_URL, formData, {
+      const response = await axiosInstance.post('/buses', formData, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -65,9 +61,10 @@ export default function RegisterBus() {
       alert('Bus submitted successfully!');
       console.log(response.data);
 
-      // Redirect to the home page after successful submission
-      router.push('/admin'); 
+      // Redirect to the admin page after successful submission
+      router.push('/admin');
     } catch (error) {
+      console.error('Error submitting the report:', error);
       if (error.message === 'Network Error') {
         alert('Failed to connect to the server. Please check your internet connection and try again.');
       } else if (error.response && error.response.status === 500) {
@@ -75,9 +72,8 @@ export default function RegisterBus() {
       } else {
         alert('Failed to submit the report. Please try again.');
       }
-      console.error('Error submitting the report:', error);
-      // Redirect to the home page after unsuccessful submission
-      router.push('/admin'); 
+      // Redirect to the admin page after unsuccessful submission
+      router.push('/admin');
     }
   };
 
@@ -228,7 +224,7 @@ export default function RegisterBus() {
           <select
             id="operator"
             name="operator"
-            value={formData.operator} // Set the default value to an empty string}
+            value={formData.operator} // Set the default value to an empty string
             onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
             required

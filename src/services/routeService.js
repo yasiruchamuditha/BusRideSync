@@ -1,7 +1,8 @@
 //src/services/routeService.js
-import axios from 'axios';
+// import axios from 'axios';
+import axiosInstance from '../utils/axiosInstance';
 
-const BASE_URL = 'http://localhost:5000/api/routes';
+// const BASE_URL = 'http://localhost:5000/api/routes';
 
 export const fetchRoutes = async () => {
   try {
@@ -10,7 +11,7 @@ export const fetchRoutes = async () => {
       throw new Error('No access token found');
     }
 
-    const response = await axios.get(BASE_URL, {
+    const response = await axiosInstance.get(`/routes`, {
       headers: {
         Authorization: `Bearer ${token}`, // Include the Bearer token in the request headers
       },

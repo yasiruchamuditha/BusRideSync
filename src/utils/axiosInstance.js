@@ -1,6 +1,6 @@
-// src/utils/axiosInstance.js
 import axios from 'axios';
-import { fetchAccessToken } from '../services/authService';
+import Router from 'next/router'; // Import Next.js Router
+import Cookies from 'js-cookie'; // Import Cookies
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
@@ -22,18 +22,17 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const originalRequest = error.config;
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      try {
-        const { accessToken } = await fetchAccessToken(); // Fetch a new access token from your auth service
-        localStorage.setItem('accessToken', accessToken);
-        originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-        return axiosInstance(originalRequest);
-      } catch (err) {
-        console.error('Error refreshing token:', err);
-        // Optionally, handle logout or redirect to login page
-      }
+    if (error.response?.status === 401) {
+      // Handle unauthorized access by redirecting to the login page
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('role');
+      localStorage.removeItem('id');
+      Cookies.remove('token');
+      Cookies.remove('name');
+      Cookies.remove('role');
+      Cookies.remove('email');
+      Cookies.remove('id');
+      Router.push('/login'); // Redirect to login page
     }
     return Promise.reject(error);
   }

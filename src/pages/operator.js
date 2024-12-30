@@ -39,7 +39,7 @@ export default function Dashboard() {
           onClick={() => router.push('/search_bus_op')}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
-          <h3 className="text-xl font-bold text-green-600 mb-4">Search Bus Schedules</h3>
+          <h3 className="text-xl font-bold text-green-600 mb-4">Search My Schedules</h3>
           <p className="text-gray-600">Find bus routes and schedules for your journey.</p>
         </div>
 
@@ -49,7 +49,7 @@ export default function Dashboard() {
           onClick={() => router.push('/viewbooking')}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
-          <h3 className="text-xl font-bold text-green-600 mb-4">View Bookings</h3>
+          <h3 className="text-xl font-bold text-green-600 mb-4">View My Bus Bookings</h3>
           <p className="text-gray-600">Check your upcoming and past bookings in one place.</p>
         </div>
 

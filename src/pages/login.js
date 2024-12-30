@@ -7,6 +7,7 @@ import Cookies from 'js-cookie';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const router = useRouter();
 
   const handleSubmit = async (e) => {
@@ -25,7 +26,18 @@ export default function Login() {
         localStorage.setItem('id', response.user.id); // Save id in local storage
         console.log('Login successful:', response);
         alert('Login successful!');
+
+        console.log('response',response);
+        console.log('response.user',response.user);
+        console.log('response.user.role',response.user.role);
+        console.log('response.user.id',response.user.id);
+        console.log('response.user.email',response.user.email);
+        console.log('response.user.name',response.user.name);
+        console.log('response.token',response.token);
+        console.log('response.refreshToken',response.refreshToken);
         
+
+
         // Redirect based on role
         if (response.user.role === 'admin') {
           router.push('/admin'); // Redirect to admin panel
@@ -35,15 +47,22 @@ export default function Login() {
           router.push('/home'); // Default redirect to home page
         }
       } else {
+        setError(response.message || 'Login failed');
         alert(response.message || 'Login failed');
       }
     } catch (error) {
-      if (error instanceof TypeError) {
-        alert('Failed to connect to the server. Please check your internet connection and try again.');
+      if (error.response && error.response.status === 401) {
+        setError('Incorrect email or password. Please try again.');
+      } else if (error.response && error.response.status === 404) {
+        setError('Endpoint not found. Please check the URL.');
+      } else if (error instanceof TypeError) {
+        setError('Failed to connect to the server. Please check your internet connection and try again.');
       } else {
-        alert('Failed to connect to the server. Please try again later.');
+        setError('Failed to connect to the server. Please try again later.');
       }
       console.error('Login error:', error);
+      // Redirect back to the login page after displaying the error
+      router.push('/login');
     }
   };
 
@@ -51,6 +70,7 @@ export default function Login() {
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-green-300 via-green-400 to-green-500">
       <form onSubmit={handleSubmit} className="p-8 bg-white rounded-lg shadow-lg w-96">
         <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">Sign In</h2>
+        {error && <div className="text-red-500 text-center mb-4">{error}</div>} {/* Display error message */}
         <input
           type="email"
           placeholder="Email"

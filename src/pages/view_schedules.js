@@ -2,14 +2,14 @@
 import { useEffect, useState } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 
-const BASE_URL = 'http://localhost:5000/api/schedules';
+// const BASE_URL = 'http://localhost:5000/api/schedules';
 
 export default function ViewSchedules() {
   const [schedules, setSchedules] = useState([]); // State to hold the list of schedules
 
   useEffect(() => {
     // Fetch the list of schedules
-    axiosInstance.get(BASE_URL)
+    axiosInstance.get(`/schedules`)
       .then(response => {
         setSchedules(response.data);
       })
@@ -21,7 +21,7 @@ export default function ViewSchedules() {
 
   const handleDelete = async (id) => {
     try {
-      await axiosInstance.delete(`${BASE_URL}/${id}`);
+      await axiosInstance.delete(`/schedules/${id}`);
       setSchedules(schedules.filter(schedule => schedule._id !== id));
       alert('Schedule deleted successfully.');
     } catch (error) {

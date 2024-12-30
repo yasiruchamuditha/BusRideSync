@@ -2,14 +2,14 @@
 import { useState, useEffect } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 
-const BASE_URL = 'http://localhost:5000/api/routes';
+// const BASE_URL = 'http://localhost:5000/api/routes';
 
 export default function RoutesList() {
   const [routes, setRoutes] = useState([]); // State to hold the list of routes
 
   useEffect(() => {
     // Fetch the list of routes
-    axiosInstance.get(BASE_URL)
+    axiosInstance.get(`/routes`)
       .then(response => {
         setRoutes(response.data);
       })
@@ -25,7 +25,7 @@ export default function RoutesList() {
       console.log('Deleting route with ID:', routeId);
       console.log('Using token:', token);
   
-      const response = await axiosInstance.delete(`${BASE_URL}/${routeId}`, {
+      const response = await axiosInstance.delete(`/routes/${routeId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
   

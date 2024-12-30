@@ -2,14 +2,14 @@
 import { useEffect, useState } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 
-const BASE_URL = 'http://localhost:5000/api/buses';
+// const BASE_URL = 'http://localhost:5000/api/buses';
 
 export default function ViewBuses() {
   const [buses, setBuses] = useState([]); // State to hold the list of buses
 
   useEffect(() => {
     // Fetch the list of buses
-    axiosInstance.get(BASE_URL)
+    axiosInstance.get(`/buses`)
       .then(response => {
         setBuses(response.data);
       })
@@ -25,7 +25,7 @@ export default function ViewBuses() {
       console.log('Deleting bus with NTC Reg Number:', ntcRegNumber);
       console.log('Using token:', token);
 
-      await axiosInstance.delete(`${BASE_URL}/${ntcRegNumber}`, {
+      await axiosInstance.delete(`/buses/ntc/${ntcRegNumber}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
   
