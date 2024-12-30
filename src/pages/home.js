@@ -54,7 +54,7 @@ export default function Dashboard() {
 
         {/* Card: View Bookings */}
         <div
-          onClick={() => router.push('/viewbooking')}
+          onClick={() => router.push('/view_userBooking')}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
           <h3 className="text-xl font-bold text-green-600 mb-4">View Bookings</h3>

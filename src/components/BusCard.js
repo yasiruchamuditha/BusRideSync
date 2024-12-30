@@ -62,7 +62,7 @@ const BusCard = ({ bus, handleReserveSeat }) => {
               <h4>Booking Info</h4>
               <p><strong>Closing Date:</strong> {bus.closingDate}</p>
               <p><strong>Closing Time:</strong> {bus.closingTime}</p>
-              <p><strong>Estimated Time:</strong> {bus.estimatedTime}</p>
+              <p><strong>Estimated Time:</strong> {bus.estimatedTime}Hours</p>
             </div>
           </div>
           <div className={styles.row}>
