@@ -61,7 +61,7 @@ export default function CreateSchedule() {
     e.preventDefault();
     try {
       // Send form data using axiosInstance
-      const response = await axiosInstance.post(`/schedules`, formData, {
+      const response = await axiosInstance.post(`operator/schedules`, formData, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -69,17 +69,17 @@ export default function CreateSchedule() {
 
       alert('Schedule created successfully!');
       console.log(response.data);
-      router.push('/admin');
+      router.push('/operator');
       
     }    catch (error) {
       if (error.response && error.response.data) {
-        setError('Schedule Registeration is Failed.Please try again.');
-        router.push('/save_schedule');
+        setError('Schedule Registeration is Failed.Please try again.k');
+        router.push('/save_schedule_op');
         throw error.response.data;
         
       } else {
         setError('Schedule Registeration is Failed.Please try again.');
-        router.push('/save_schedule');
+        router.push('/save_schedule_op');
         throw { message: "An unexpected error occurred" };
       }
        

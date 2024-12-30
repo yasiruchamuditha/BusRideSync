@@ -73,19 +73,19 @@ export default function RegisterBus() {
       alert('Bus submitted successfully!');
       console.log(response.data);
       // Redirect to the admin page after successful submission
-      router.push('/admin');
+      router.push('/operator');
     }
     catch (error) {
       if (error.response && error.response.data) {
         setError('Bus Registeration is Not Completed.Please try again.');
         // alert('Bus Registeration is Not Completed.Please try again.');
-        router.push('/save_bus');
+        router.push('/save_bus_op');
         throw error.response.data;
         
       } else {
         setError('Bus Registeration is Not Completed.Please try again.');
         // alert('Bus Registeration is Not Completed.Please try again.Failed to submit the report. Please try again.');
-        router.push('/save_bus');
+        router.push('/save_bus_op');
         throw { message: "An unexpected error occurred" };
       }
        
