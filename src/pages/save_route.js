@@ -3,6 +3,7 @@ import axiosInstance from '../utils/axiosInstance';
 import { useRouter } from 'next/router';
 
 export default function CreateRoute() {
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     routeNumber: '',
     routeName: '',
@@ -38,34 +39,29 @@ export default function CreateRoute() {
       router.push('/admin');
   
       // Redirect or update UI after successful submission
-    } catch (error) {
-      console.error('Error saving route:', error);
-      if (error.response) {
-        if (error.response.status === 400) {
-          alert('Bad Request: Please check the input data.');
-        } else if (error.response.status === 401) {
-          alert('Unauthorized: Please log in again.');
-          router.push('/login');
-        } else if (error.response.status === 500) {
-          alert('Server error occurred. Please try again later.');
-        } else {
-          alert(`Error: ${error.response.status} - ${error.response.statusText}`);
-        }
-        console.error('Response data:', error.response.data);
-      } else if (error.request) {
-        alert('Network error: No response received from the server.');
-        console.error('Request details:', error.request);
+    } 
+    catch (error) {
+      if (error.response && error.response.data) {
+        setError('Route Registeration is Failed.Please try again.');
+        // alert('Bus Registeration is Not Completed.Please try again.');
+        router.push('/save_route');
+        throw error.response.data;
+        
       } else {
-        alert('Error setting up the request.');
-        console.error('Error message:', error.message);
+        setError('Route Registeration is Failed.Please try again.');
+        // alert('Bus Registeration is Not Completed.Please try again.Failed to submit the report. Please try again.');
+        router.push('/save_route');
+        throw { message: "An unexpected error occurred" };
       }
-    }
+       
+    } 
   };
 
   return (
     <div className="min-h-screen bg-green-100 flex flex-col items-center py-8">
       <h2 className="text-3xl font-bold text-green-700 mb-6">Create New Route</h2>
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg w-full max-w-3xl">
+      {error && <div className="text-red-500 text-center mb-4">{error}</div>} {/* Display error message */}
         {/* Route Number */}
         <div className="mb-4">
           <label htmlFor="routeNumber" className="block text-sm font-medium text-gray-700">Route Number</label>
