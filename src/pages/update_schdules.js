@@ -1,9 +1,9 @@
 //src/pages/lagguage.js
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import axios from 'axios';
+// import axios from 'axios';
+import axiosInstance from '../utils/axiosInstance';
 
-const BASE_URL = '/api/schedules';
 
 export default function UpdateSchedule() {
   const router = useRouter();
@@ -26,7 +26,7 @@ export default function UpdateSchedule() {
   useEffect(() => {
     if (id) {
       // Fetch the schedule details
-      axios.get(`${BASE_URL}/${id}`)
+      axiosInstance.get(`/schedules/${id}`)
         .then(response => {
           setSchedule(response.data);
           setFormData({
@@ -58,7 +58,7 @@ export default function UpdateSchedule() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`${BASE_URL}/${id}`, formData);
+      await axios.put(`/schedules/${id}`, formData);
       alert('Schedule updated successfully.');
       router.push('/schedules');
     } catch (error) {

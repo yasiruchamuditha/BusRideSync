@@ -5,6 +5,7 @@ import { signup } from '../services/auth';
 import Link from 'next/link';
 
 export default function Signup() {
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -26,9 +27,11 @@ export default function Signup() {
         router.push('/login'); // Redirect to login page
       } else {
         alert(response.message || 'Signup failed');
+        setError('Signup failed. Please try again.');
       }
     } catch (error) {
-      alert('Failed to connect to the server. Please try again later.');
+      setError('Signup failed. Please try again.');
+      alert('Signup Failed.Please try again.');
       console.error('Signup error:', error);
       router.push('/signup'); // Redirect to login page
     }
@@ -38,6 +41,7 @@ export default function Signup() {
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-green-400 to-green-600">
       <div className="p-8 bg-white rounded-lg shadow-lg w-96">
         <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">Sign Up</h2>
+        {error && <div className="text-red-500 text-center mb-4">{error}</div>} {/* Display error message */}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <input

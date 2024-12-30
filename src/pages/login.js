@@ -54,11 +54,11 @@ export default function Login() {
       if (error.response && error.response.status === 401) {
         setError('Incorrect email or password. Please try again.');
       } else if (error.response && error.response.status === 404) {
-        setError('Endpoint not found. Please check the URL.');
+        setError('Please try again.');
       } else if (error instanceof TypeError) {
-        setError('Failed to connect to the server. Please check your internet connection and try again.');
+        setError('Invalid Credintials.Please try again.');
       } else {
-        setError('Failed to connect to the server. Please try again later.');
+        setError('Invalid Credintials.Please try again.');
       }
       console.error('Login error:', error);
       // Redirect back to the login page after displaying the error

@@ -3,13 +3,25 @@ import axiosInstance from '../utils/axiosInstance';
 
 //Handle signup  requests
 export const signup = async (userData) => {
-  const response = await axiosInstance.post('/auth/signup', userData);
-  return response.data;
+  try{
+    const response = await axiosInstance.post('/auth/signup', userData);
+    return response.data;
+
+  }
+  catch (error) {
+    if (error.response && error.response.data) {
+      throw error.response.data;
+    } else {
+      throw { message: "An unexpected error occurred" };
+    }
+  }
+  
 };
 
 //Handle login requests
 export const login = async (credentials) => {
-  const response = await axiosInstance.post('/auth/login', credentials);
+  try {
+    const response = await axiosInstance.post('/auth/login', credentials);
     // Store tokens and role in local storage
     const data = response.data;
 
@@ -19,7 +31,14 @@ export const login = async (credentials) => {
     localStorage.setItem('id', data.id); // Store id
     
   return response.data;
- 
+  }
+  catch (error) {
+    if (error.response && error.response.data) {
+      throw error.response.data;
+    } else {
+      throw { message: "An unexpected error occurred" };
+    }
+  }
 };
 
 
