@@ -99,7 +99,9 @@ export default function Dashboard() {
 
         {/* Card: Luggage Booking */}
         <div
-          onClick={() => router.push('/luggage')}
+           onClick={() => {
+            alert('This feature is under development.');
+          }}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
           <h3 className="text-xl font-bold text-green-600 mb-4">Luggage Booking</h3>
@@ -108,7 +110,9 @@ export default function Dashboard() {
 
         {/* Card: View Luggage Booking */}
         <div
-          onClick={() => router.push('/viewluggage')}
+          onClick={() => {
+            alert('This feature is under development.');
+          }}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
           <h3 className="text-xl font-bold text-green-600 mb-4">View Luggage Bookings</h3>
