@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../utils/axiosInstance';
-import Cookies from 'js-cookie';
 
 const UserBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -10,8 +9,10 @@ const UserBookings = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const token = Cookies.get('token'); // Retrieve token from cookies
-        const userId = Cookies.get('id'); // Retrieve userId from cookies
+        const token = localStorage.getItem('token'); // Retrieve token
+        const id = localStorage.getItem('id'); // Retrieve user ID
+        console.log('userId', id);
+        console.log('token', token);
 
         if (!token) {
           setError('No token found. Please log in.');
@@ -19,13 +20,13 @@ const UserBookings = () => {
           return;
         }
 
-        if (!userId) {
+        if (!id) {
           setError('No user ID found. Please log in.');
           setLoading(false);
           return;
         }
 
-        const response = await axiosInstance.get(`/booking/user/${userId}`, {
+        const response = await axiosInstance.get(`/commuter/booking/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -39,6 +40,13 @@ const UserBookings = () => {
 
     fetchBookings();
   }, []);
+
+  const handleContactAdmin = (booking) => {
+    const adminEmail = 'prcaretest@gmail.com';
+    const subject = `Inquiry about canceling booking: ${booking._id}`;
+    const body = `Hello Admin,\n\nI would like to inquire about canceling the booking with the following details:\n\nBooking ID: ${booking._id}\nRoute: ${booking.scheduleId.route.routeName}\nPayment Type: ${booking.paymentType}\nAmount: ${booking.amount}\nPayment Status: ${booking.paymentStatus}\nPayment Date: ${new Date(booking.paymentDate).toLocaleDateString()}\nSeat Numbers: ${booking.bookingSeats.join(', ')}\n\nThank you.`;
+    window.location.href = `mailto:${adminEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -57,6 +65,7 @@ const UserBookings = () => {
               <th className="px-4 py-2 border-b-2 border-gray-300">Payment Status</th>
               <th className="px-4 py-2 border-b-2 border-gray-300">Payment Date</th>
               <th className="px-4 py-2 border-b-2 border-gray-300">Seat Numbers</th>
+              <th className="px-4 py-2 border-b-2 border-gray-300">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -69,6 +78,14 @@ const UserBookings = () => {
                 <td className="px-4 py-2 border-b border-gray-300">{booking.paymentStatus}</td>
                 <td className="px-4 py-2 border-b border-gray-300">{new Date(booking.paymentDate).toLocaleDateString()}</td>
                 <td className="px-4 py-2 border-b border-gray-300">{booking.bookingSeats.join(', ')}</td>
+                <td className="px-4 py-2 border-b border-gray-300">
+                  <button
+                    onClick={() => handleContactAdmin(booking)}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  >
+                    Contact Admin
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

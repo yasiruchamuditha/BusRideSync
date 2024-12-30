@@ -64,10 +64,10 @@ export default function Dashboard() {
   
         {/* Card: View Bookings */}
         <div
-          onClick={() => router.push('/viewbooking')}
+          onClick={() => router.push('/view_booking')}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
-          <h3 className="text-xl font-bold text-green-600 mb-4">View My Bus Bookings</h3>
+          <h3 className="text-xl font-bold text-green-600 mb-4">View Bus Bookings</h3>
           <p className="text-gray-600">Check your upcoming and past bookings in one place.</p>
         </div>
 
