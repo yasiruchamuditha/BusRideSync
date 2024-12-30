@@ -1,7 +1,8 @@
 //src/services/scheduleService.js
-import axios from 'axios';
+// import axios from 'axios';
+import axiosInstance from '../utils/axiosInstance';
 
-const BASE_URL = 'http://localhost:5000/api/schedules'; // base URL
+// const BASE_URL = 'http://localhost:5000/api/schedules'; // base URL
 
 export const fetchSchedules = async (startCity, endCity, departureDate) => {
   try {
@@ -10,7 +11,7 @@ export const fetchSchedules = async (startCity, endCity, departureDate) => {
       throw new Error('No access token found');
     }
 
-    const response = await axios.post(`${BASE_URL}/search`, {
+    const response = await axiosInstance.post(`/schedules/search`, {
       startCity,
       endCity,
       departureDate,

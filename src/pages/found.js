@@ -3,7 +3,7 @@ import { useState } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 import { useRouter } from 'next/router'; // Import useRouter hook
 
-const BASE_URL = 'http://localhost:5000/api/found';
+// const BASE_URL = 'http://localhost:5000/api/found';
 
 export default function ReportFoundItem() {
   const [formData, setFormData] = useState({
@@ -45,11 +45,11 @@ export default function ReportFoundItem() {
         }
       });
 
-      console.log('Sending request to:', BASE_URL);
+      //console.log('Sending request to:', BASE_URL);
       console.log('FormData:', formDataToSend);
 
       // Send formData using axiosInstance
-      const response = await axiosInstance.post(BASE_URL, formDataToSend, {
+      const response = await axiosInstance.post(`/found`, formDataToSend, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

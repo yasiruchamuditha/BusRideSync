@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { getBusDetails, searchSchedules } from '../services/operatorServices';
+import { getBusDetails } from '../services/operatorservice';
+import { searchSchedules } from '../services/operatorServices';
 
 export default function Search() {
   const [busNtcRegNumber, setBusNtcRegNumber] = useState('');
@@ -32,38 +33,38 @@ export default function Search() {
   return (
     <div className="bg-green-200 min-h-screen flex flex-col items-center justify-start">
       <form onSubmit={handleSearch} className="bg-white p-6 rounded-lg shadow-md flex flex-wrap space-x-4 max-w-4xl w-full mt-6">
-        {/* Bus NTC Registration Number */}
-        <div className="flex flex-col flex-grow w-1/3">
-          <label htmlFor="busNtcRegNumber" className="text-sm font-medium text-gray-700">Bus NTC Reg Number</label>
-          <input
-            type="text"
-            id="busNtcRegNumber"
-            name="busNtcRegNumber"
-            value={busNtcRegNumber}
-            onChange={(e) => setBusNtcRegNumber(e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 h-full"
-            required
-          />
-        </div>
+        <div className="flex flex-row w-full justify-between items-end space-x-4">
+          {/* Bus NTC Registration Number */}
+          <div className="flex flex-col flex-grow">
+            <label htmlFor="busNtcRegNumber" className="text-sm font-medium text-gray-700">Bus NTC Reg Number</label>
+            <input
+              type="text"
+              id="busNtcRegNumber"
+              name="busNtcRegNumber"
+              value={busNtcRegNumber}
+              onChange={(e) => setBusNtcRegNumber(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 h-full"
+              required
+            />
+          </div>
 
-        {/* Departure Date */}
-        <div className="flex flex-col flex-grow w-1/3">
-          <label htmlFor="departureDate" className="text-sm font-medium text-gray-700">Travel Date</label>
-          <input
-            type="date"
-            id="departureDate"
-            name="departureDate"
-            value={departureDate}
-            onChange={(e) => setDepartureDate(e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 h-full"
-            required
-          />
-        </div>
+          {/* Departure Date */}
+          <div className="flex flex-col flex-grow">
+            <label htmlFor="departureDate" className="text-sm font-medium text-gray-700">Travel Date</label>
+            <input
+              type="date"
+              id="departureDate"
+              name="departureDate"
+              value={departureDate}
+              onChange={(e) => setDepartureDate(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 h-full"
+              required
+            />
+          </div>
 
-        <div className="flex items-end flex-grow w-1/3">
           <button
             type="submit"
-            className="px-6 py-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 w-full flex items-center justify-center"
+            className="px-6 py-3 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
           >
             Search
           </button>

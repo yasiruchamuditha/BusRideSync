@@ -2,14 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../utils/axiosInstance'; // Importing axios instance
 
-const BASE_URL = 'http://localhost:5000/api/found'; // Backend URL
+// const BASE_URL = 'http://localhost:5000/api/found'; // Backend URL
 
 export default function ViewFoundItems() {
   const [foundItems, setFoundItems] = useState([]); // State to hold the list of found items
 
   // Fetch the list of found items when the component mounts
   useEffect(() => {
-    axiosInstance.get(BASE_URL)
+    axiosInstance.get(`/found`)
       .then(response => {
         setFoundItems(response.data);
       })
@@ -35,7 +35,7 @@ export default function ViewFoundItems() {
       console.log('Deleting item with ID:', id);
       console.log('Using token:', token);
 
-      await axiosInstance.delete(`${BASE_URL}/${id}`, {
+      await axiosInstance.delete(`/found/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -59,7 +59,7 @@ export default function ViewFoundItems() {
   // Function to handle updating the status of an item
   const handleUpdateStatus = async (id) => {
     try {
-      await axiosInstance.put(`${BASE_URL}/${id}`, { status: 'Delivered' });
+      await axiosInstance.put(`/found/${id}`, { status: 'Delivered' });
       setFoundItems(foundItems.map(item => item._id === id ? { ...item, status: 'Delivered' } : item)); // Update state after status change
       alert('Item status updated to Delivered.');
     } catch (error) {
@@ -108,16 +108,10 @@ export default function ViewFoundItems() {
                 <td className="px-4 py-2 border-b border-gray-300">
                   <button
                     onClick={() => handleUpdateStatus(item._id)}
-                    className="px-2 py-1 bg-blue-500 text-white rounded mr-2"
-                  >
-                    Mark as Delivered
-                  </button>
+                    className="px-2 py-1 bg-blue-500 text-white rounded mr-2">Mark as Delivered</button>
                   <button
                     onClick={() => handleDelete(item._id)}
-                    className="px-2 py-1 bg-red-500 text-white rounded"
-                  >
-                    Delete
-                  </button>
+                    className="px-2 py-1 bg-red-500 text-white rounded">Delete</button>
                 </td>
               </tr>
             ))}

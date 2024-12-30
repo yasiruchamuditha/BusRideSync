@@ -1,12 +1,12 @@
 //src/services/lostService.js
 import axiosInstance from '../utils/axiosInstance';
 
-const BASE_URL = 'http://localhost:5000/api/lost';
+// const BASE_URL = 'http://localhost:5000/api/lost';
 
 export const getLostItems = async () => {
   try {
-    console.log('Fetching lost items from:', BASE_URL);
-    const response = await axiosInstance.get(BASE_URL);
+    // console.log('Fetching lost items from:', BASE_URL);
+    const response = await axiosInstance.get(`/lost`);
     console.log('Response data:', response.data);
     return response.data;
   } catch (error) {

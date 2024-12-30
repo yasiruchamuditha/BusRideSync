@@ -1,9 +1,6 @@
-//src/pages/save_route.js
 import { useState } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 import { useRouter } from 'next/router';
-
-const BASE_URL = 'http://localhost:5000/api/routes/add-manual';
 
 export default function CreateRoute() {
   const [formData, setFormData] = useState({
@@ -11,7 +8,7 @@ export default function CreateRoute() {
     routeName: '',
     startCity: '',
     endCity: '',
-    routeType: 'Normalway',
+    routeType: 'NormalWay', // Default value
   });
 
   const router = useRouter();
@@ -29,7 +26,7 @@ export default function CreateRoute() {
       console.log('Submitting route with data:', formData);
       console.log('Using token:', token);
   
-      const response = await axiosInstance.post(BASE_URL, formData, {
+      const response = await axiosInstance.post(`/routes/add-manual`, formData, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
@@ -44,7 +41,16 @@ export default function CreateRoute() {
     } catch (error) {
       console.error('Error saving route:', error);
       if (error.response) {
-        alert(`Error: ${error.response.status} - ${error.response.statusText}`);
+        if (error.response.status === 400) {
+          alert('Bad Request: Please check the input data.');
+        } else if (error.response.status === 401) {
+          alert('Unauthorized: Please log in again.');
+          router.push('/login');
+        } else if (error.response.status === 500) {
+          alert('Server error occurred. Please try again later.');
+        } else {
+          alert(`Error: ${error.response.status} - ${error.response.statusText}`);
+        }
         console.error('Response data:', error.response.data);
       } else if (error.request) {
         alert('Network error: No response received from the server.');
@@ -53,7 +59,6 @@ export default function CreateRoute() {
         alert('Error setting up the request.');
         console.error('Error message:', error.message);
       }
-      router.push('/admin');
     }
   };
 

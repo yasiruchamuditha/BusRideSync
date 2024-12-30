@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 
-const BASE_URL = 'http://localhost:5000/api/admin/users'; 
+// const BASE_URL = 'http://localhost:5000/api/admin/users'; 
 
 const Users = () => {
   const [commuters, setCommuters] = useState([]);
@@ -13,7 +13,7 @@ const Users = () => {
     // Fetch users by role
     const fetchUsers = async () => {
       try {
-        const response = await axiosInstance.get(`${BASE_URL}`);
+        const response = await axiosInstance.get(`/admin/users`);
         const users = response.data;
         setCommuters(users.filter(user => user.role === 'commuter'));
         setOperators(users.filter(user => user.role === 'operator'));
@@ -39,7 +39,7 @@ const Users = () => {
       console.log('Deleting user with ID:', userId);
       console.log('Using token:', token);
 
-      await axiosInstance.delete(`${BASE_URL}/${userId}`, {
+      await axiosInstance.delete(`/admin/users/${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

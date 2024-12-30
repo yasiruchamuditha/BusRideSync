@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 import Cookies from 'js-cookie';
 
-const BASE_URL = 'http://localhost:5000/api/booking';
+// const BASE_URL = 'http://localhost:5000/api/booking';
 
 export default function ViewBookings() {
   const [bookings, setBookings] = useState([]); // State to hold the list of bookings
@@ -20,7 +20,7 @@ export default function ViewBookings() {
           return;
         }
 
-        const response = await axiosInstance.get(BASE_URL, {
+        const response = await axiosInstance.get(`/booking`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setBookings(response.data);
@@ -40,7 +40,7 @@ export default function ViewBookings() {
       console.log('Deleting booking with ID:', id);
       console.log('Using token:', token);
 
-      await axiosInstance.delete(`${BASE_URL}/${id}`, {
+      await axiosInstance.delete(`/booking/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -75,13 +75,14 @@ export default function ViewBookings() {
         <table className="min-w-full bg-white">
           <thead>
             <tr>
-              <th className="px-4 py-2 border-b-2 border-gray-300">User ID</th>
+              <th className="px-4 py-2 border-b-2 border-gray-300">User Name</th>
+              {/* <th className="px-4 py-2 border-b-2 border-gray-300">User ID</th> */}
               <th className="px-4 py-2 border-b-2 border-gray-300">Schedule ID</th>
               <th className="px-4 py-2 border-b-2 border-gray-300">Payment Type</th>
               <th className="px-4 py-2 border-b-2 border-gray-300">Amount</th>
               <th className="px-4 py-2 border-b-2 border-gray-300">Payment Status</th>
               <th className="px-4 py-2 border-b-2 border-gray-300">Payment Date</th>
-              <th className="px-4 py-2 border-b-2 border-gray-300">Transaction Reference</th>
+              {/* <th className="px-4 py-2 border-b-2 border-gray-300">Transaction Reference</th> */}
               <th className="px-4 py-2 border-b-2 border-gray-300">Seats</th>
               <th className="px-4 py-2 border-b-2 border-gray-300">Actions</th>
             </tr>
@@ -89,13 +90,14 @@ export default function ViewBookings() {
           <tbody>
             {bookings.map((booking) => (
               <tr key={booking._id}>
-                <td className="px-4 py-2 border-b border-gray-300">{booking.userId}</td>
+                <td className="px-4 py-2 border-b border-gray-300">{booking.userId.name}</td>
+                {/* <td className="px-4 py-2 border-b border-gray-300">{booking.userId}</td> */}
                 <td className="px-4 py-2 border-b border-gray-300">{booking.scheduleId}</td>
                 <td className="px-4 py-2 border-b border-gray-300">{booking.paymentType}</td>
                 <td className="px-4 py-2 border-b border-gray-300">{booking.amount}</td>
                 <td className="px-4 py-2 border-b border-gray-300">{booking.paymentStatus}</td>
                 <td className="px-4 py-2 border-b border-gray-300">{new Date(booking.paymentDate).toLocaleDateString()}</td>
-                <td className="px-4 py-2 border-b border-gray-300">{booking.transactionReference}</td>
+                {/* <td className="px-4 py-2 border-b border-gray-300">{booking.transactionReference}</td> */}
                 <td className="px-4 py-2 border-b border-gray-300">{booking.bookingSeats.join(', ')}</td>
                 <td className="px-4 py-2 border-b border-gray-300">
                   <button
