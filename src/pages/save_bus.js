@@ -195,7 +195,7 @@ export default function RegisterBus() {
           <select
             id="route"
             name="route"
-            value={formData.route || ''} // Use route name if available, else empty string
+            value={formData.route || ''} // Set the default value to an empty string
             onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
             required
@@ -228,14 +228,14 @@ export default function RegisterBus() {
           <select
             id="operator"
             name="operator"
-            value={formData.operator}
+            value={formData.operator} // Set the default value to an empty string}
             onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
             required
           >
             <option value="">Select an Operator</option>
             {users.map((user) => (
-              <option key={user._id} value={user._id}>{user.name}</option>
+              <option key={user._id} value={user._id}>{user.nic}</option>
             ))}
           </select>
         </div>
