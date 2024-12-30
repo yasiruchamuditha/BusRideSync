@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 import axiosInstance from '../utils/axiosInstance'; // Adjust the path as necessary
 import { useRouter } from 'next/router';
 
-const BASE_URL = 'http://localhost:5000/api/schedules';
-const BUSES_URL = 'http://localhost:5000/api/buses';
-const ROUTES_URL = 'http://localhost:5000/api/routes';
+// const BASE_URL = 'http://localhost:5000/api/schedules';
+// const BUSES_URL = 'http://localhost:5000/api/buses';
+// const ROUTES_URL = 'http://localhost:5000/api/routes';
 
 export default function CreateSchedule() {
   const [formData, setFormData] = useState({
@@ -33,11 +33,11 @@ export default function CreateSchedule() {
 
   useEffect(() => {
     // Fetch buses and routes for the dropdowns
-    axiosInstance.get(BUSES_URL)
+    axiosInstance.get(`/buses`)
       .then(response => setBuses(response.data))
       .catch(error => console.error('Error fetching buses:', error));
 
-    axiosInstance.get(ROUTES_URL)
+    axiosInstance.get(`/routes`)
       .then(response => setRoutes(response.data))
       .catch(error => console.error('Error fetching routes:', error));
   }, []);
@@ -51,7 +51,7 @@ export default function CreateSchedule() {
     e.preventDefault();
     try {
       // Send form data using axiosInstance
-      const response = await axiosInstance.post(BASE_URL, formData, {
+      const response = await axiosInstance.post(`/schedules`, formData, {
         headers: {
           'Content-Type': 'application/json',
         },

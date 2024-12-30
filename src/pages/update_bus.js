@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import axiosInstance from '../utils/axiosInstance';
 
-const BASE_URL = 'http://localhost:5000/api/buses';
+// const BASE_URL = 'http://localhost:5000/api/buses';
 
 export default function UpdateBus() {
   const [buses, setBuses] = useState([]); // State to hold the list of buses
@@ -22,7 +22,7 @@ export default function UpdateBus() {
 
   useEffect(() => {
     // Fetch the list of buses
-    axiosInstance.get(BASE_URL)
+    axiosInstance.get(`/buses`)
       .then(response => {
         setBuses(response.data);
       })
@@ -36,7 +36,7 @@ export default function UpdateBus() {
     const selectedNtcRegNumber = e.target.value;
     if (selectedNtcRegNumber) {
       // Fetch bus details for the selected NTC registration number
-      axiosInstance.get(`${BASE_URL}/${selectedNtcRegNumber}`)
+      axiosInstance.get(`/buses/${selectedNtcRegNumber}`)
         .then(response => {
           console.log('Fetched bus data:', response.data); // Debug log
           setFormData(response.data);
@@ -68,7 +68,7 @@ export default function UpdateBus() {
     e.preventDefault();
     try {
       // Send the updated form data to the server
-      const response = await axiosInstance.put(`${BASE_URL}/${formData.ntcRegNumber}`, formData, {
+      const response = await axiosInstance.put(`/buses/${formData.ntcRegNumber}`, formData, {
         headers: {
           'Content-Type': 'application/json',
         },
