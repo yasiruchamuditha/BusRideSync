@@ -36,7 +36,7 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl px-4">
         {/* Card: Search Bus Schedules */}
         <div
-          onClick={() => router.push('/search_bus')}
+          onClick={() => router.push('/search_bus_op')}
           className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg cursor-pointer"
         >
           <h3 className="text-xl font-bold text-green-600 mb-4">Search Bus Schedules</h3>
