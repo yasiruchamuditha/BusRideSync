@@ -11,7 +11,7 @@ export default function CreateRoute() {
     routeName: '',
     startCity: '',
     endCity: '',
-    routeType: 'Normal',
+    routeType: 'Normalway',
   });
 
   const router = useRouter();
@@ -128,8 +128,8 @@ export default function CreateRoute() {
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
             required
           >
-            <option value="Normal">Normal</option>
-            <option value="Expressway">Expressway</option>
+            <option value="NormalWay">NormalWay</option>
+            <option value="ExpressWay">ExpressWay</option>
           </select>
         </div>
 

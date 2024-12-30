@@ -11,6 +11,7 @@ export default function Signup() {
     password: '',
     mobile: '',
     role: 'commuter', // Default role
+    nic: '',
   });
   const router = useRouter();
 
@@ -94,6 +95,18 @@ export default function Signup() {
               <option value="operator">Operator</option>
               <option value="admin">Admin</option>
             </select>
+          </div>
+
+          <div className="mb-6">
+            <input
+              type="text"
+              name="nic"
+              placeholder="NIC"
+              value={formData.nic}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+              required
+            />
           </div>
 
           <button

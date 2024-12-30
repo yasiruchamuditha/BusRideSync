@@ -19,7 +19,7 @@ export default function Navbar() {
         <div className="relative flex items-center justify-between h-16">
           {/* Logo on the left */}
           <div className="flex-shrink-0 text-white text-2xl font-bold">
-            <Link href="/login">
+            <Link href="#">
               RideSync
             </Link>
           </div>
@@ -37,11 +37,11 @@ export default function Navbar() {
             </Link>
 
             {/* Booking Link */}
-            <Link href="/booking" passHref>
+            {/* <Link href="/booking" passHref>
               <span className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">
                 Bookings
               </span>
-            </Link>
+            </Link> */}
 
             {/* Login Link */}
             <Link href="/login" passHref>
