@@ -1,6 +1,7 @@
 // src/components/BusCardNoReserve.js
 import React from 'react';
 import styles from '../styles/BusCard.module.css';
+import Image from 'next/image';
 
 const BusCardNoReserve = ({ bus }) => {
   // Format the dates to show only the date part
@@ -39,7 +40,7 @@ const BusCardNoReserve = ({ bus }) => {
       </div>
       <div className={styles.content}>
         <div className={styles.image}>
-          <img src="https://sltb.eseat.lk/images/bus/main/bus2775_2445.jpg" alt="Bus" className={styles.busImage} />
+          <Image src="https://sltb.eseat.lk/images/bus/main/bus2775_2445.jpg" alt="Bus" className={styles.busImage} />
           <div className={styles.sectionx}>
             <p><strong>Distance:</strong> {bus.estimatedDistance} km</p>
           </div>

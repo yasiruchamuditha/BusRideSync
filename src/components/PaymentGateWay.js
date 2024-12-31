@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { processBooking } from '../services/bookingService';
 //import { processPayment } from '../services/paymentService';
 import Cookies from 'js-cookie';
+import Image from 'next/image';
 
 const PaymentGateWay = ({
   totalAmount,
@@ -150,7 +151,7 @@ const PaymentGateWay = ({
                 checked={formData.paymentType === 'Card Payment'}
                 onChange={handleChange}
               />
-              <img
+              <Image
                 alt="visa"
                 src="https://leadershipmemphis.org/wp-content/uploads/2020/08/780370.png"
                 className="h-8 ml-3"

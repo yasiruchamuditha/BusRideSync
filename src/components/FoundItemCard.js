@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 const FoundItemCard = ({ item }) => {
   const handleContactAdmin = () => {
@@ -11,7 +12,7 @@ const FoundItemCard = ({ item }) => {
 
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg m-4">
-      {item.photos.length > 0 && <img className="w-full" src={item.photos[0]} alt="Found item" />}
+      {item.photos.length > 0 && <Image className="w-full" src={item.photos[0]} alt="Found item" />}
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">{item.name}</div>
         <p className="text-gray-700 text-base">Found at: {item.foundPlace}</p>
