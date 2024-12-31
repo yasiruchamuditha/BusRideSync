@@ -2,7 +2,10 @@ import axios from 'axios';
 import Router from 'next/router'; // Import Next.js Router
 import Cookies from 'js-cookie'; // Import Cookies
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const API_URL =
+  process.env.NEXT_PUBLIC_NODE_ENV === "production"
+    ? process.env.NEXT_PUBLIC_API_PROD
+    : process.env.NEXT_PUBLIC_API_DEV;
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
