@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { FaCreditCard, FaTimes } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import { processBooking } from '../services/bookingService';
-//import { processPayment } from '../services/paymentService';
+
 import Cookies from 'js-cookie';
-import Image from 'next/image';
+// import Image from 'next/image';
 
 const PaymentGateWay = ({
   totalAmount,
@@ -151,11 +151,12 @@ const PaymentGateWay = ({
                 checked={formData.paymentType === 'Card Payment'}
                 onChange={handleChange}
               />
-              <Image
+              <label htmlFor="type2" className="flex items-center cursor-pointer">visa</label>
+              {/* <Image
                 alt="visa"
                 src="https://leadershipmemphis.org/wp-content/uploads/2020/08/780370.png"
                 className="h-8 ml-3"
-              />
+              /> */}
             </label>
           </div>
           <div className="px-2">
@@ -167,11 +168,12 @@ const PaymentGateWay = ({
                 value="PayPal"
                 onChange={handleChange}
               />
-              <Image
+               <label htmlFor="type2" className="flex items-center cursor-pointer">Paypal</label>
+              {/* <Image
                 alt="paypal"
                 src="https://www.sketchappsources.com/resources/source-image/PayPalCard.png"
                 className="h-8 ml-3"
-              />
+              /> */}
             </label>
           </div>
         </div>
