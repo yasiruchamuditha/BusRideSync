@@ -167,7 +167,7 @@ const PaymentGateWay = ({
                 value="PayPal"
                 onChange={handleChange}
               />
-              <img
+              <Image
                 alt="paypal"
                 src="https://www.sketchappsources.com/resources/source-image/PayPalCard.png"
                 className="h-8 ml-3"
