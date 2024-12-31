@@ -35,11 +35,12 @@ const Payment = () => {
           <p><strong>Total Price (including tax):</strong> Rs.{totalPrice}</p>
         </div>
         <PaymentGateWay
-          totalAmount={totalPrice}
-          selectedSeats={selectedSeats.split(',')}
-          scheduleId={scheduleId}
-          token={token}
-        />
+       totalAmount={totalPrice}
+      selectedSeats={selectedSeats ? selectedSeats.split(',') : []}
+      scheduleId={scheduleId}
+    token={token}
+/>
+
       </div>
     </div>
   );
