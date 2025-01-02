@@ -4,7 +4,7 @@ import axiosInstance from '../utils/axiosInstance';
 //Handle signup  requests
 export const signup = async (userData) => {
   try{
-    const response = await axiosInstance.post('/auth/signup', userData);
+    const response = await axiosInstance.post('/api/auth/signup', userData);
     return response.data;
 
   }
@@ -21,7 +21,7 @@ export const signup = async (userData) => {
 //Handle login requests
 export const login = async (credentials) => {
   try {
-    const response = await axiosInstance.post('/auth/login', credentials);
+    const response = await axiosInstance.post('/api/auth/login', credentials);
     // Store tokens and role in local storage
     const data = response.data;
 
