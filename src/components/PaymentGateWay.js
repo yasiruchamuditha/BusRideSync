@@ -78,6 +78,7 @@ const PaymentGateWay = ({
   const handlePayNow = async () => {
     if (validateForm()) {
       const currentUser = Cookies.get('id'); // Retrieve userId from cookies
+      console.log('Current user:', currentUser);
       const { paymentType } = formData;
 
       const bookingData = {
