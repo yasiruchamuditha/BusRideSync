@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../utils/axiosInstance';
+import Cookies from 'js-cookie';
+
 
 const UserBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -9,10 +11,12 @@ const UserBookings = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const token = localStorage.getItem('token'); // Retrieve token
+        // const token = localStorage.getItem('token'); // Retrieve token
+        const token = Cookies.get('token'); 
         const id = localStorage.getItem('id'); // Retrieve user ID
         console.log('userId', id);
         console.log('token', token);
+
 
         if (!token) {
           setError('No token found. Please log in.');
